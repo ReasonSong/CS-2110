@@ -31,6 +31,21 @@ public class PhDTester {
 		
 	}
 	
-	
+	@Test
+	public void testAddAdvisor(){
+		
+		PhD Summer = new PhD("Hongshu Ye", 'F', 9, 2016);
+		PhD Reason = new PhD("Ruochen Song", 'M', 9, 2015);
+		PhD MrX = new PhD("Mr.X", 'M', 10, 1963);
 
+		Reason.addAdvisor1(Summer);
+		Reason.addAdvisor2(MrX);
+		
+		assertEquals(Summer, Reason.advisor1());
+		assertEquals(MrX, Reason.advisor2());
+		assertEquals(1, Summer.getAdviseeNum());
+		assertEquals(1, MrX.getAdviseeNum());
+		
+	}
+	
 }

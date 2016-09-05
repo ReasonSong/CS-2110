@@ -21,9 +21,9 @@ public class PhD {
 	private int adviseeNum;	// number of the PhD's advisees. Under control of the program.
 
 	/** Constructor: an instance for a person with name n, gender g, PhD month m,
-      * and PhD year y. Its advisors are unknown, and it has no advisees.
-      * Precondition: n has at least 1 char. m is in 1..12. g is 'F' for female or 'M' for male.
-	  */
+     *  and PhD year y. Its advisors are unknown, and it has no advisees.
+     *  Precondition: n has at least 1 char. m is in 1..12. g is 'F' for female or 'M' for male.
+	 */
 	public PhD(String n, char g, int m, int y){
 
 		assert n != null && n.length() > 0;
@@ -87,20 +87,29 @@ public class PhD {
 		return firstAdvisor;
 	}
 
-	public void setAdvisor1(PhD firstAdvisor) {
-		assert firstAdvisor != null;
+	/** Add p as the first advisor of this person.
+ 	 *	Precondition: the first advisor is unknown and p is not null.
+	 */
+	public void addAdvisor1(PhD firstAdvisor) {
+		assert firstAdvisor != null && this.firstAdvisor == null;
 		this.firstAdvisor = firstAdvisor;
+		firstAdvisor.increaseAdvisee();
 	}
 
 	/** Return the second advisor of this PhD (null if unknown or non-existent). */
 	public PhD advisor2() {
 		return secondAdvisor;
 	}
-
-	public void setAdvisor2(PhD secondAdvisor) {
-		assert secondAdvisor != null;
-		if (firstAdvisor == null) secondAdvisor = null;
+	
+	/** Add p as the second advisor of this person.
+	 *  Precondition: The first advisor (of this person) is known, the second advisor
+	 *  is unknown, p is not null, and p is different from the first advisor.
+	 */
+	public void addAdvisor2(PhD secondAdvisor) {
+		assert secondAdvisor != null && this.firstAdvisor != null
+				&& this.secondAdvisor == null && this.firstAdvisor != this.secondAdvisor;
 		this.secondAdvisor = secondAdvisor;
+		secondAdvisor.increaseAdvisee();
 	}
 
 	/** Return the number of PhD advisees of this person. */	
@@ -108,4 +117,8 @@ public class PhD {
 		return adviseeNum;
 	}
 	
+	/** Increase the number of PhD advisees of this person by 1. */
+	public void increaseAdvisee(){
+		++this.adviseeNum;
+	}
 }
