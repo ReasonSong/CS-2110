@@ -99,7 +99,7 @@ public class PhD {
 
 	public void setAdvisor2(PhD secondAdvisor) {
 		assert secondAdvisor != null;
-		if (firstAdvisor == null)	secondAdvisor = null;
+		if (firstAdvisor == null) secondAdvisor = null;
 		this.secondAdvisor = secondAdvisor;
 	}
 
