@@ -1,0 +1,111 @@
+/** NetId: rs2352, hy483. Time spent:  hours,  minutes.
+An instance maintains info about the PhD of a person. */
+
+package a1PhD;
+
+public class PhD {
+	
+	private String name; // PhD's name. At least 1 character.
+	
+	private char gender; // PhD's gender. Should be either 'M' for male or 'F' for female. 
+	
+	private int PhDMonth; // month PhD was awarded. In range 1..12, with 1 meaning Jan, etc.
+		
+	private int PhDYear; // year PhD was awarded.
+	
+	private PhD firstAdvisor; // the PhD's first advisor -- null if unknown.
+	
+	private PhD secondAdvisor; // the PhD's second advisor -- null if unknown 
+							   // or the first advisor is unknown.
+	
+	private int adviseeNum;	// number of the PhD's advisees. Under control of the program.
+
+	/** Constructor: an instance for a person with name n, gender g, PhD month m,
+      * and PhD year y. Its advisors are unknown, and it has no advisees.
+      * Precondition: n has at least 1 char. m is in 1..12. g is 'F' for female or 'M' for male.
+	  */
+	public PhD(String n, char g, int m, int y){
+
+		assert n != null && n.length() > 0;
+		assert g == 'M' || g == 'F';
+		assert m > 0 && m <= 12;
+		assert y > 0;
+		
+		this.name = n;
+		this.gender = g;
+		this.PhDMonth = m;
+		this.PhDYear = y;
+		this.firstAdvisor = null;
+		this.secondAdvisor = null;
+		this.adviseeNum = 0;
+		
+	}
+	
+	/** Return the name of this PhD. */
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		assert name != null && name.length() > 0;
+		this.name = name;
+	}
+
+	/** Return the value of the sentence "This person is a female." */
+	public boolean isFemale() {
+		if (this.gender == 'F') return true;
+		else return false;
+	}
+
+	public void setGender(char gender) {
+		assert gender == 'F' || gender == 'M';	
+		this.gender = gender;
+	}
+
+	/** Return the month this person got their PhD. */
+	public int getMonth() {
+		return PhDMonth;
+	}
+
+	public void setMonth(int phDMonth) {
+		assert phDMonth > 0 && phDMonth <= 12;
+		PhDMonth = phDMonth;
+	}
+	
+	/** Return the year this person got their PhD. */
+	public int getYear() {
+		return PhDYear;
+	}
+
+	public void setYear(int phDYear) {
+		assert phDYear >= 0;
+		PhDYear = phDYear;
+	}
+	
+	/** Return the first advisor of this PhD (null if unknown). */
+	public PhD advisor1() {
+		return firstAdvisor;
+	}
+
+	public void setAdvisor1(PhD firstAdvisor) {
+		assert firstAdvisor != null;
+		this.firstAdvisor = firstAdvisor;
+	}
+
+	/** Return the second advisor of this PhD (null if unknown or non-existent). */
+	public PhD advisor2() {
+		return secondAdvisor;
+	}
+
+	public void setAdvisor2(PhD secondAdvisor) {
+		assert secondAdvisor != null;
+		if (firstAdvisor == null)	secondAdvisor = null;
+		this.secondAdvisor = secondAdvisor;
+	}
+
+	/** Return the number of PhD advisees of this person. */	
+	public int getAdviseeNum() {
+		return adviseeNum;
+	}
+	
+}
