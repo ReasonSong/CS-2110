@@ -1,5 +1,8 @@
-/** NetId: rs2352, hy483. Time spent:  hours,  minutes.
+/** NetId: rs2352, hy483. Time spent: 2 hours, 5 minutes.
 An instance maintains info about the PhD of a person. */
+
+/** Successfully generated Javadoc for this project,
+ *  and checked the Javadoc output. */
 
 package a1PhD;
 
@@ -22,7 +25,8 @@ public class PhD {
 
 	/** Constructor: an instance for a person with name n, gender g, PhD month m,
      *  and PhD year y. Its advisors are unknown, and it has no advisees.
-     *  Precondition: n has at least 1 char. m is in 1..12. g is 'F' for female or 'M' for male.
+     *  Precondition: n has at least 1 char. m is in 1..12. 
+     *  			  g is 'F' for female or 'M' for male.
 	 */
 	public PhD(String n, char g, int m, int y){
 
@@ -78,7 +82,10 @@ public class PhD {
 	public String getName() {
 		return name;
 	}
-
+	
+	/** Set the name of the PhD to parameter name.
+	 *  Precondition: name is not null, and name is at least 1 char.
+	 */
 	public void setName(String name) {
 		assert name != null && name.length() > 0;
 		this.name = name;
@@ -86,10 +93,12 @@ public class PhD {
 
 	/** Return the value of the sentence "This person is a female." */
 	public boolean isFemale() {
-		if (this.gender == 'F') return true;
-		else return false;
+		return this.gender == 'F';
 	}
-
+	
+	/** Set the gender of the PhD to parameter gender.
+	 *  Precondition: gender is 'F' for female or 'M' for male.
+	 */
 	public void setGender(char gender) {
 		assert gender == 'F' || gender == 'M';	
 		this.gender = gender;
@@ -99,7 +108,10 @@ public class PhD {
 	public int getMonth() {
 		return PhDMonth;
 	}
-
+	
+	/** Set the month PhD was awarded to phDMonth.
+	 *  Precondition: pHDMonth is in 1..12.
+	 */
 	public void setMonth(int phDMonth) {
 		assert phDMonth > 0 && phDMonth <= 12;
 		PhDMonth = phDMonth;
@@ -109,7 +121,10 @@ public class PhD {
 	public int getYear() {
 		return PhDYear;
 	}
-
+	
+	/** Set the year PhD was awarded to phDYear.
+	 * Precondition: phDYear is greater than 0.
+	 */
 	public void setYear(int phDYear) {
 		assert phDYear >= 0;
 		PhDYear = phDYear;
@@ -146,7 +161,7 @@ public class PhD {
 	}
 
 	/** Return the number of PhD advisees of this person. */	
-	public int getAdviseeNum() {
+	public int numberOfAdvisEES() {
 		return adviseeNum;
 	}
 	
@@ -162,13 +177,12 @@ public class PhD {
 		
 		return p != null && (p.getYear() <= this.PhDYear
 				|| (p.getYear() == this.PhDYear && p.getMonth() < this.PhDMonth));	
-		
 	}
+	
 	/** Return value of "this person and p are intellectual siblings."
 	 *  Precondition: p is not null.
 	 */
 	public boolean arePhDSiblings(PhD p){
-		
 		assert p != null;
 		
 		return p != this && this.firstAdvisor != null && p.advisor1() != null

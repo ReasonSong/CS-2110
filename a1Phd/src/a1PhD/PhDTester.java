@@ -17,7 +17,7 @@ public class PhDTester {
 		assertEquals(2016, Summer.getYear());
 		assertEquals(null, Summer.advisor1());
 		assertEquals(null, Summer.advisor2());
-		assertEquals(0, Summer.getAdviseeNum());
+		assertEquals(0, Summer.numberOfAdvisEES());
 		
 		PhD Reason = new PhD("Ruochen Song", 'M', 9, 2015);
 		
@@ -27,7 +27,7 @@ public class PhDTester {
 		assertEquals(2015, Reason.getYear());
 		assertEquals(null, Reason.advisor1());
 		assertEquals(null, Reason.advisor2());
-		assertEquals(0, Reason.getAdviseeNum());
+		assertEquals(0, Reason.numberOfAdvisEES());
 		
 	}
 	
@@ -43,8 +43,8 @@ public class PhDTester {
 		
 		assertEquals(Summer, Reason.advisor1());
 		assertEquals(MrX, Reason.advisor2());
-		assertEquals(1, Summer.getAdviseeNum());
-		assertEquals(1, MrX.getAdviseeNum());
+		assertEquals(1, Summer.numberOfAdvisEES());
+		assertEquals(1, MrX.numberOfAdvisEES());
 		
 	}
 	
@@ -54,8 +54,14 @@ public class PhDTester {
 		PhD Summer = new PhD("Hongshu Ye", 'F', 9, 2016);
 		PhD Reason = new PhD("Ruochen Song", 'M', 9, 2015, Summer);
 		
+		assertEquals("Ruochen Song", Reason.getName());
+		assertEquals(false, Reason.isFemale());
+		assertEquals(9, Reason.getMonth());
+		assertEquals(2015, Reason.getYear());
 		assertEquals(Summer, Reason.advisor1());
-		assertEquals(1, Summer.getAdviseeNum());
+		assertEquals(null, Reason.advisor2());
+		assertEquals(1, Summer.numberOfAdvisEES());
+		assertEquals(0, Reason.numberOfAdvisEES());
 		
 	}
 	
@@ -66,10 +72,15 @@ public class PhDTester {
 		PhD MrX = new PhD("Mr.X", 'M', 10, 1963);
 		PhD Reason = new PhD("Ruochen Song", 'M', 9, 2015, Summer, MrX);
 		
+		assertEquals("Ruochen Song", Reason.getName());
+		assertEquals(false, Reason.isFemale());
+		assertEquals(9, Reason.getMonth());
+		assertEquals(2015, Reason.getYear());
 		assertEquals(Summer, Reason.advisor1());
 		assertEquals(MrX, Reason.advisor2());		
-		assertEquals(1, Summer.getAdviseeNum());
-		assertEquals(1, MrX.getAdviseeNum());
+		assertEquals(1, Summer.numberOfAdvisEES());
+		assertEquals(1, MrX.numberOfAdvisEES());
+		assertEquals(0, Reason.numberOfAdvisEES());
 	}
 	
 	@Test
