@@ -154,4 +154,28 @@ public class PhD {
 	public void increaseAdvisee(){
 		++this.adviseeNum;
 	}
+	
+	/** Return value of "p is not null and this person got their
+	 *  PhD after p did."
+	 */  
+	public boolean gotAfter(PhD p){
+		
+		return p != null && (p.getYear() <= this.PhDYear
+				|| (p.getYear() == this.PhDYear && p.getMonth() < this.PhDMonth));	
+		
+	}
+	/** Return value of "this person and p are intellectual siblings."
+	 *  Precondition: p is not null.
+	 */
+	public boolean arePhDSiblings(PhD p){
+		
+		assert p != null;
+		
+		return p != this && this.firstAdvisor != null && p.advisor1() != null
+				&& (this.firstAdvisor == p.advisor1() 
+				    || (this.secondAdvisor != null && this.secondAdvisor == p.advisor1())
+				    || (p.advisor2() != null && this.firstAdvisor == p.advisor2())
+				    || (this.secondAdvisor != null && p.advisor2() != null 
+				        && (this.firstAdvisor == p.advisor2() || this.secondAdvisor == p.advisor2())));
+	}
 }

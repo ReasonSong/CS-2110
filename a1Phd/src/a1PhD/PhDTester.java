@@ -72,4 +72,34 @@ public class PhDTester {
 		assertEquals(1, MrX.getAdviseeNum());
 	}
 	
+	@Test
+	public void testGotAfter(){
+		
+		PhD Summer = new PhD("Hongshu Ye", 'F', 9, 2016);
+		PhD MrX = new PhD("Mr.X", 'M', 10, 1963);
+		PhD Reason = new PhD("Ruochen Song", 'M', 8, 2016);
+
+		assertEquals(false, Summer.gotAfter(null));
+		assertEquals(true, Summer.gotAfter(MrX));
+		assertEquals(true, Summer.gotAfter(Reason));
+	}
+	
+	@Test
+	public void testArePhDSiblings(){
+		
+		PhD MrX = new PhD("Mr.X", 'M', 10, 1963);
+		PhD MrY = new PhD("Mr.Y", 'F', 8, 1976);
+		PhD Summer = new PhD("Hongshu Ye", 'F', 9, 2016, MrY);
+		PhD Reason = new PhD("Student Z", 'M', 9, 2016, MrX);
+		PhD StudentZ = new PhD("Ruochen Song", 'M', 9, 2015, MrX, MrY);
+		
+		assertEquals(true, Summer.arePhDSiblings(StudentZ));
+		assertEquals(true, StudentZ.arePhDSiblings(Summer));
+		assertEquals(true, Reason.arePhDSiblings(StudentZ));
+		assertEquals(true, StudentZ.arePhDSiblings(Reason));
+		assertEquals(false, Summer.arePhDSiblings(Reason));
+		assertEquals(false, Reason.arePhDSiblings(Summer));
+		assertEquals(false, Summer.arePhDSiblings(Summer));
+		
+	}	
 }
