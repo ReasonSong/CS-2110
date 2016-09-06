@@ -41,6 +41,39 @@ public class PhD {
 		
 	}
 	
+	
+	 /** Constructor: a PhD with name n, gender g, PhD month m, PhD year y,
+	  *  first advisor adv, and no second advisor.
+	  *	 Precondition: n has at least 1 char, g is 'F' for female or 'M' for male,
+	  *  m is in 1..12, and adv is not null.
+	  */
+	 public PhD(String n, char g, int m, int y, PhD adv){
+		
+		this(n, g, m, y);
+		
+		assert adv != null;
+		
+		this.firstAdvisor = adv;
+		adv.increaseAdvisee();
+		
+	}
+
+	/** Constructor: a PhD with name n, gender g, PhD month m, PhD year y,
+	 *  first advisor adv1, and second advisor adv2.
+	 *  Precondition: n has at least 1 char. g is 'F' for female or 'M' for male.
+	 *  m is in 1..12. adv1 and adv2 are not null. adv1 and adv2 are different.
+	 */  
+	public PhD(String n, char g, int m, int y, PhD adv1, PhD adv2){
+		
+		this(n, g, m, y, adv1);
+		
+		assert adv2 != null && adv1 != adv2;
+		
+		this.secondAdvisor = adv2;
+		adv2.increaseAdvisee();
+		
+	}
+
 	/** Return the name of this PhD. */
 	public String getName() {
 		return name;
