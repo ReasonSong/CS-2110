@@ -45,7 +45,12 @@ public class A2Tests {
 
     @Test
     public void testEvaluate() {
-        assertEquals(9,   A2.evaluate("9"));
+    	
+    	assertEquals(-1, A2.findNextNonSpace(" ", 0));
+    	assertEquals(0, A2.findNextSpace(" ", 0));
+    	assertEquals(3, A2.findNextSpace("123 6 ", 0));
+    	
+        assertEquals(9,   A2.evaluate("  9"));
         assertEquals(7,   A2.evaluate("3 + 4"));
         assertEquals(-1,  A2.evaluate("3 - 4"));
         assertEquals(125, A2.evaluate("100 - 25+50"));
