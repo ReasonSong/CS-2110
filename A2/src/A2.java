@@ -160,7 +160,10 @@ public class A2 {
     	
     	assert s != null && input != null && output != null;
     	assert input.length() == output.length();
-    	// another assert need here, maybe 
+    	// another assert need here, maybe
+    	for (int i = 0; i < input.length(); ++i) {
+    		assert input.charAt(i) != output.charAt(i);
+    	}
     	
     	String encoded = s;
     	for (int charNum = 0; charNum < input.length(); ++charNum){
@@ -256,6 +259,10 @@ public class A2 {
      *           evaluate("9")             returns 9
      *           evaluate("   7   +   7   +    7  ") returns 21
      */
+    
+    /** Helper function to find the next non-space char in the string,
+     *  return the char's index, or -1 if non-space char is not found.
+     */
     public static int findNextNonSpace(String s, int startChar){
     	assert s.length() > startChar;
     	
@@ -267,6 +274,9 @@ public class A2 {
     	return charNum;
     }
     
+    /** Helper function to find the next space char in the string,
+     *  return the index of ' ', or -1 if ' ' is not found.
+     */
     public static int findNextSpace(String s ,int startChar){
     	assert s.length() > startChar;
     	
@@ -275,11 +285,14 @@ public class A2 {
     		++ charNum;
     	}
     	
-    	if(charNum == s.length()) return charNum;
+    	if(charNum == s.length()) return -1;
     	
     	return charNum;
     }
     
+    /** Helper function to find '+' or '-' in the string,
+     *  return the index of '+' or '-'.
+     */
     public static int findNextNonIntChar(String s ,int startChar){
     	assert s.length() > startChar;
     	
@@ -293,6 +306,9 @@ public class A2 {
     	return charNum;
     }
     
+    /** Helper function to find integers in the string,
+     *  return integer's value
+     */
     public static int getNextInt(String s){
     	
     	int intStart = findNextNonSpace(s, scanStart);
@@ -320,7 +336,7 @@ public class A2 {
     		int nextNonSpaceNum = findNextNonSpace(s, scanStart);
     		if (nextNonSpaceNum == -1) return sum;	// Nothing but space left
     		
-    		char operator = s.charAt(nextNonSpaceNum);;
+    		char operator = s.charAt(nextNonSpaceNum);
     		assert operator == '+' || operator == '-';
     		scanStart = nextNonSpaceNum + 1;
     		int nextInt = getNextInt(s);
@@ -331,7 +347,7 @@ public class A2 {
     			sum -= nextInt;
     		}
     	}
-
+    	
         return sum;
     }
 }
