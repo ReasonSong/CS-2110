@@ -164,6 +164,12 @@ public class A2 {
     	for (int i = 0; i < input.length(); ++i) {
     		assert input.charAt(i) != output.charAt(i);
     	}
+    	int inputInitLength = input.length(); // store initial length of input in an int
+    	int outputInitLength = output.length(); // store initial length of output in an int
+    	input.replaceAll("(.)\\1{1,}", "$1"); // reduce repeated char in parameter input
+    	output.replaceAll("(.)\\1{1,}", "$1"); // reduce repeated char in parameter output 
+    	assert input.length() == inputInitLength && output.length() == outputInitLength;
+    	
     	
     	String encoded = s;
     	for (int charNum = 0; charNum < input.length(); ++charNum){
