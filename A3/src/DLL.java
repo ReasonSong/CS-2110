@@ -1,7 +1,6 @@
-
-/* NetId(s): djg17 mdg39 Time spent: hh hours, mm minutes.
+/* NetId(s): rs2352 hy483 Time spent: hh hours, mm minutes.
  *
- * Name(s):
+ * Name(s): Ruochen Song, Hongshu Ye 
  * What I thought about this assignment:
  *
  *
@@ -22,14 +21,19 @@ public class DLL<V> {
         // TODO item #1, along with #2 and #3
         // Write this constructor, function size(), and function toStringRev()
         // Then test using the testing procedure we gave you in the A3 handout.
-        throw new UnsupportedOperationException();
+    	
+        // throw new UnsupportedOperationException();
+    	this.size = 0;
+    	this.head = null;
+    	this.tail = null;
     }
 
     /** = the number of values in this list.
      * This operation must take constant time. */
     public int size() {
         // TODO item #2, along with #1 and #3
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+    	return this.size;
     }
 
     /** Return a representation of this list: its values in order, with
@@ -42,10 +46,10 @@ public class DLL<V> {
         // invariant: res = "[" + v1 + ", " + v2 + ", " + ... + ", " + vk
         //            where v1 ... vk are the values in all Nodes before n
         //            (or all if n is null)
-        for (Node n= head; n != null; n= n.succ) {
+        for (Node n = head; n != null; n = n.succ) {
             if (res.length() > 1)
-                res= res + ", ";
-            res= res + n.value;
+                res = res + ", ";
+            res = res + n.value;
         }
         return res + "]";
     }
@@ -63,7 +67,16 @@ public class DLL<V> {
         // invariant: res = "[" + vn + ", " + v(k-1) + ", " + ... + ", " + vk
         //            where vn ... vk are the values in all Nodes after n
         //
-        throw new UnsupportedOperationException();
+        
+        // throw new UnsupportedOperationException();
+        
+        for (Node n = tail; n != null; n = n.pred) {
+        	if (res.length() > 1)
+        		res = res + ", ";
+        	res += n.value;	
+        }
+        return res + "]";
+        
     }
 
     /** Append val to the end of this list. */
@@ -73,7 +86,18 @@ public class DLL<V> {
         // sure that adding a first value works properly, adding a second value
         // works properly, adding a third value works properly, and adding a
         // fourth value works properly.
-        throw new UnsupportedOperationException();
+    	
+        // throw new UnsupportedOperationException();
+    	Node newNode = new Node(this.tail, val, null);
+    	
+    	if (this.head == null) {	// The list is empty
+    		this.head = newNode;
+    	} else {
+    		this.tail.succ = newNode;
+    	}
+    	
+    	this.tail = newNode;
+    	++ this.size;
     }
 
     /** Return Node number h of the linked list (not the value, which is this[h]).
@@ -89,7 +113,25 @@ public class DLL<V> {
         // There are two ways to get to an element: from the head or from the tail.
         // This MUST use the fastest way for h.
         // (If h is exactly the middle, then either way is ok.)
-        throw new UnsupportedOperationException();
+    	
+    	if (h < 0 || h >= this.size){
+    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    	}
+    	
+    	Node n = this.head;
+    	int searchTime = h;
+    	if (h < this.size / 2) {
+        	while(--searchTime >= 0){
+        		n = n.succ;
+        	}
+    	} else {
+    		searchTime = this.size - h - 1;
+    		n = this.tail;
+    		while(--searchTime >= 0){
+    			n = n.pred;
+    		}
+    	}
+    	return n;
     }
 
     /** Return this[h] --value number h of the list.
@@ -101,7 +143,12 @@ public class DLL<V> {
         // No need to throw an exception here; getNode will do it.
         // This method must be tested completely; since it relies heavily
         // getNode(int), that method will be tested too.
-        throw new UnsupportedOperationException();
+    	
+    	if (h < 0 || h >= this.size){
+    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    	}
+    	
+    	return this.getNode(h).value;
     }
 
     /** Return value this[h] and replace it by val.
@@ -111,7 +158,15 @@ public class DLL<V> {
         // TODO item #7
         // Rely on function getNode(int) to keep this method small.
         // No need to throw an exception here; getNode will do it.
-        throw new UnsupportedOperationException();
+    	if (h < 0 || h >= this.size){
+    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    	}
+    	
+    	Node n = this.getNode(h);
+    	V v = n.value;
+    	n.value = val;
+    	
+    	return v;
     }
 
     /** Insert val into a new Node before Node n of this list and return the new Node.
@@ -125,7 +180,20 @@ public class DLL<V> {
         //
         // Do NOT check whether n is actually a Node of this list because
         // it will then not be a constant-time operation.
-        throw new UnsupportedOperationException();
+        
+    	assert n != null;
+    	
+    	Node newNode = new Node(n.pred, val, n);
+    	n.pred = newNode;
+    	
+    	if (this.head == n) {	// If insert before the previous head
+    		this.head = newNode;
+    	} else {
+    		n.pred.succ = newNode;
+    	}
+    	
+    	++ this.size;
+    	return newNode;
     }
 
     /** Insert val as this[h]; thus, this[h..] becomes this[h+1..].
@@ -137,7 +205,18 @@ public class DLL<V> {
         // Rely on three helper methods to keep this method small:
         // add(V), getNode(int), and insertBefore(V, int).
         // add and getNode will throw the exception; no need for it here.
-        throw new UnsupportedOperationException();
+    	if (h < 0 || h > this.size){
+    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    	}
+    	
+    	if (h == this.size) {
+    		this.add(val);
+    		return;
+    	}
+    	
+    	Node n = this.getNode(h);
+    	this.insertBefore(val, n);
+    	
     }
 
     /** Remove this[h] from the list and return the value that was removed.
@@ -149,7 +228,43 @@ public class DLL<V> {
         //
         // It's good to set all fields of the removed node to null so that if a user
         // gets hold of the node no damage can be done.
-        throw new UnsupportedOperationException();
+    	
+    	if (h < 0 || h >= this.size){
+    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    	}
+    	
+    	Node n = this.getNode(h);
+    	V v = n.value;
+    	
+    	/** Check if there is only one node in the list.
+    	 */
+    	if (this.size == 1) {
+    		this.head = null;
+    		this.tail = null;
+    		
+        	-- this.size;	
+        	n.pred = null;
+        	n.succ = null;
+        	n.value = null;
+        	return v;
+    	}
+    	
+    	if (h == 0){	// The node is the head of the list    		
+    		this.head = n.succ;
+    		n.succ.pred = null;
+    	} else if (h == this.size -1) {	// The node is the tail of the list
+    		this.tail = n.pred;
+    		n.pred.succ = null;
+    	} else {	// The node neither the head nor the tail.
+    		n.pred.succ = n.succ;
+    		n.succ.pred = n.pred;
+    	}
+    	
+    	-- this.size;	
+    	n.pred = null;
+    	n.succ = null;
+    	n.value = null;
+    	return v;
     }
 
     ////////////////////////////////////////////////////////////////////////////
