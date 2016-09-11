@@ -51,8 +51,6 @@ public class A2Tests {
     public void testEvaluate() {
     	
     	assertEquals(-1, A2.findNextNonSpace(" ", 0));
-    	assertEquals(0, A2.findNextSpace(" ", 0));
-    	assertEquals(3, A2.findNextSpace("123 6 ", 0));
     	assertEquals(1, A2.findNextNonSpace(" ab cd", 0));
     	assertEquals(2, A2.findNextNonIntChar("12+3" , 0));
     	assertEquals(6, A2.getNextInt(" 6 "));

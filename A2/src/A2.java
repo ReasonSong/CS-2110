@@ -101,6 +101,7 @@ public class A2 {
 	 private static int scanStart = 0;
 
     /** Return true if the first half of s is the same as the second half of s.
+     * Precondition: s is not null.
      *  Examples: For s = "" return true
      *            For s = "xxx" return false  (if the length is odd, it's false)
      *            For s = "xxxx" return true
@@ -122,6 +123,9 @@ public class A2 {
     }
 
     /** Return s with its characters reversed.
+     * 
+     * Precondition: s is not null.
+     * 
      *  Examples: if s = "" return ""
      *            if s = "b" return "b"
      *            if s = "abc", return "cba"
@@ -144,10 +148,10 @@ public class A2 {
      *  by the corresponding character in output.
      *  A character that does not appear in input is unchanged.
      *
-     * Precondition: input and output are the same length.
-     *               No character in input appears in output (otherwise,
-     *               the idea of replacement might be ambiguous, depending
-     *               on the order in which replacemens are done).
+     * Precondition: input, output, s are not null.
+     * 				 input and output are the same length.
+     *               No character in input appears in output.
+     *               input and output do not contain repeated chars.
      *
      * Examples: encode("hello world", "", "")       = "hello world"
      *           encode("hello world", "abc", "lmn") = "hello world"
@@ -160,14 +164,19 @@ public class A2 {
     	
     	assert s != null && input != null && output != null;
     	assert input.length() == output.length();
-    	// another assert need here, maybe
+    	
+    	// assert if character(s) in input appears in output.
     	for (int i = 0; i < input.length(); ++i) {
-    		assert input.charAt(i) != output.charAt(i);
+    		for (int j = 0; j < output.length(); ++j) {
+    			assert input.charAt(i) != output.charAt(j);
+    		}
     	}
-    	int inputInitLength = input.length(); // store initial length of input in an int
-    	int outputInitLength = output.length(); // store initial length of output in an int
-    	input.replaceAll("(.)\\1{1,}", "$1"); // reduce repeated char in parameter input
-    	output.replaceAll("(.)\\1{1,}", "$1"); // reduce repeated char in parameter output 
+    	
+    	// assert if input and output contain repeated chars.
+    	int inputInitLength = input.length();
+    	int outputInitLength = output.length();
+    	input.replaceAll("(.)\\1{1,}", "$1"); // reduce repeated char(s) in parameter input
+    	output.replaceAll("(.)\\1{1,}", "$1"); // reduce repeated char(s) in parameter output 
     	assert input.length() == inputInitLength && output.length() == outputInitLength;
     	
     	
@@ -180,6 +189,7 @@ public class A2 {
     }
 
     /** Return the shortest substring x of s such that s = x + x + ⋯ + x.
+     * Precondition: s if not null.
      * Examples: For s = "" return ""
      *           For s = "xxxxxxxxx" return "x"
      *           For s = "xyxyxyxy" return "xy"
@@ -273,26 +283,11 @@ public class A2 {
     	assert s.length() > startChar;
     	
     	int charNum = startChar;
+    	/** find next ' ' and store its index */
     	while (charNum < s.length() && s.charAt(charNum) == ' '){
     		++ charNum;
     	}
     	if (charNum == s.length()) return -1;
-    	return charNum;
-    }
-    
-    /** Helper function to find the next space char in the string,
-     *  return the index of ' ', or -1 if ' ' is not found.
-     */
-    public static int findNextSpace(String s ,int startChar){
-    	assert s.length() > startChar;
-    	
-    	int charNum = startChar;
-    	while (charNum < s.length() && s.charAt(charNum) != ' ' ){
-    		++ charNum;
-    	}
-    	
-    	if(charNum == s.length()) return -1;
-    	
     	return charNum;
     }
     
@@ -303,6 +298,7 @@ public class A2 {
     	assert s.length() > startChar;
     	
     	int charNum = startChar;
+    	/** find next operator and its corresponding index */
     	while (charNum < s.length() && Character.getNumericValue(s.charAt(charNum)) != -1 ){
     		++ charNum;
     	}
@@ -336,7 +332,10 @@ public class A2 {
     	
     	scanStart = 0;
 		int sum = getNextInt(s);
-	
+		
+		/** Traverse the string to find numbers, operators
+		 *  Evaluate the formula and return the result
+		 */
     	while (scanStart < s.length()){
     		
     		int nextNonSpaceNum = findNextNonSpace(s, scanStart);
