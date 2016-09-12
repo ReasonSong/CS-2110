@@ -33,6 +33,7 @@ public class A2Tests {
         assertEquals("hello world", A2.encode("hello world", "abc", "lmn"));
         assertEquals("xelly wyrlz", A2.encode("hello world", "hod", "xyz"));
         assertEquals("..... .....", A2.encode("hello world", "helowrd", "......."));
+        // assertEquals("hello world", A2.encode("hello world", "he", "ej"));
     }
 
     @Test

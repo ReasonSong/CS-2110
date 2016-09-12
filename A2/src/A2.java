@@ -167,9 +167,7 @@ public class A2 {
     	
     	// assert if character(s) in input appears in output.
     	for (int i = 0; i < input.length(); ++i) {
-    		for (int j = 0; j < output.length(); ++j) {
-    			assert input.charAt(i) != output.charAt(j);
-    		}
+    		assert output.indexOf(input.charAt(i)) == -1;
     	}
     	
     	// assert if input and output contain repeated chars.
@@ -328,7 +326,7 @@ public class A2 {
         // (like "12345") to the corresponding integer (12345).
     	
     	assert s != null && s.length() != 0;
-    	assert findNextNonSpace(s, 0) != -1;
+    	assert findNextNonSpace(s, 0) != -1;	// The string should not be empty.
     	
     	scanStart = 0;
 		int sum = getNextInt(s);
