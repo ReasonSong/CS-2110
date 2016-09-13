@@ -277,7 +277,7 @@ public class A2 {
     /** Helper function to find the next non-space char in the string,
      *  return the char's index, or -1 if non-space char is not found.
      */
-    public static int findNextNonSpace(String s, int startChar){
+    /*package*/  static int findNextNonSpace(String s, int startChar){
     	assert s.length() > startChar;
     	
     	int charNum = startChar;
@@ -292,7 +292,7 @@ public class A2 {
     /** Helper function to find '+' or '-' in the string,
      *  return the index of '+' or '-'.
      */
-    public static int findNextNonIntChar(String s ,int startChar){
+   /*package*/ static int findNextNonIntChar(String s ,int startChar){
     	assert s.length() > startChar;
     	
     	int charNum = startChar;
@@ -309,7 +309,7 @@ public class A2 {
     /** Helper function to find integers in the string,
      *  return integer's value
      */
-    public static int getNextInt(String s){
+   /*package*/  static int getNextInt(String s){
     	
     	int intStart = findNextNonSpace(s, scanStart);
     	assert intStart != -1 && s.charAt(intStart) != '0';
