@@ -1,4 +1,4 @@
-/* NetId(s): rs2352 hy483 Time spent: hh hours, mm minutes.
+/* NetId(s): rs2352 hy483 Time spent: 03 hours, 30 minutes.
  *
  * Name(s): Ruochen Song, Hongshu Ye 
  * What I thought about this assignment:
@@ -22,17 +22,19 @@ public class DLL<V> {
         // Write this constructor, function size(), and function toStringRev()
         // Then test using the testing procedure we gave you in the A3 handout.
     	
-        // throw new UnsupportedOperationException();
     	this.size = 0;
     	this.head = null;
     	this.tail = null;
+    	if (this.size != 0 && this.head != null && this.tail != null)
+    		throw new UnsupportedOperationException("Not an empty linked list.");
     }
 
     /** = the number of values in this list.
      * This operation must take constant time. */
     public int size() {
         // TODO item #2, along with #1 and #3
-        //throw new UnsupportedOperationException();
+    	if (this.size < 0)
+    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
     	return this.size;
     }
 
@@ -68,7 +70,8 @@ public class DLL<V> {
         //            where vn ... vk are the values in all Nodes after n
         //
         
-        // throw new UnsupportedOperationException();
+        if (this.size < 0)
+    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
         
         for (Node n = tail; n != null; n = n.pred) {
         	if (res.length() > 1)
@@ -87,7 +90,9 @@ public class DLL<V> {
         // works properly, adding a third value works properly, and adding a
         // fourth value works properly.
     	
-        // throw new UnsupportedOperationException();
+    	if (this.size < 0)
+    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
+    	
     	Node newNode = new Node(this.tail, val, null);
     	
     	if (this.head == null) {	// The list is empty
@@ -115,7 +120,7 @@ public class DLL<V> {
         // (If h is exactly the middle, then either way is ok.)
     	
     	if (h < 0 || h >= this.size){
-    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    		throw new IndexOutOfBoundsException("The node num is out of the size of the list.");
     	}
     	
     	Node n = this.head;
@@ -145,7 +150,7 @@ public class DLL<V> {
         // getNode(int), that method will be tested too.
     	
     	if (h < 0 || h >= this.size){
-    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    		throw new IndexOutOfBoundsException("The node num is out of the size of the list.");
     	}
     	
     	return this.getNode(h).value;
@@ -159,7 +164,7 @@ public class DLL<V> {
         // Rely on function getNode(int) to keep this method small.
         // No need to throw an exception here; getNode will do it.
     	if (h < 0 || h >= this.size){
-    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    		throw new IndexOutOfBoundsException("The node num is out of the size of the list.");
     	}
     	
     	Node n = this.getNode(h);
@@ -181,6 +186,8 @@ public class DLL<V> {
         // Do NOT check whether n is actually a Node of this list because
         // it will then not be a constant-time operation.
         
+    	if (this.size < 0)
+    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
     	assert n != null;
     	
     	Node newNode = new Node(n.pred, val, n);
@@ -206,7 +213,7 @@ public class DLL<V> {
         // add(V), getNode(int), and insertBefore(V, int).
         // add and getNode will throw the exception; no need for it here.
     	if (h < 0 || h > this.size){
-    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    		throw new IndexOutOfBoundsException("The node num is out of the size of the list.");
     	}
     	
     	if (h == this.size) {
@@ -230,7 +237,7 @@ public class DLL<V> {
         // gets hold of the node no damage can be done.
     	
     	if (h < 0 || h >= this.size){
-    		throw new UnsupportedOperationException("The node num is out of the size of the list.");
+    		throw new IndexOutOfBoundsException("The node num is out of the size of the list.");
     	}
     	
     	Node n = this.getNode(h);

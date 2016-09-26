@@ -101,5 +101,29 @@ public class DLLTest {
 		assertEquals("[]", dll.toStringRev());
 		assertEquals(0, dll.size());
 	}
+	
+	@Test
+	public void testThrowException() {
+		DLL<Integer> dll = new DLL<Integer>();
+		try {dll.getNode(-1); fail();}
+		catch (IndexOutOfBoundsException e) {}
+		catch (Throwable t) {fail();}
+		
+		try {dll.get(-1); fail();}
+		catch (IndexOutOfBoundsException e) {}
+		catch (Throwable t) {fail();}
+		
+		try {dll.set(-1, null); fail();}
+		catch (IndexOutOfBoundsException e) {}
+		catch (Throwable t) {fail();}
+		
+		try {dll.add(-1, 10); fail();}
+		catch (IndexOutOfBoundsException e) {}
+		catch (Throwable t) {fail();}
+		
+		try {dll.remove(-1); fail();}
+		catch (IndexOutOfBoundsException e) {}
+		catch (Throwable t) {fail();}
+	}
 
 }
