@@ -25,16 +25,12 @@ public class DLL<V> {
     	this.size = 0;
     	this.head = null;
     	this.tail = null;
-    	if (this.size != 0 && this.head != null && this.tail != null)
-    		throw new UnsupportedOperationException("Not an empty linked list.");
     }
 
     /** = the number of values in this list.
      * This operation must take constant time. */
     public int size() {
         // TODO item #2, along with #1 and #3
-    	if (this.size < 0)
-    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
     	return this.size;
     }
 
@@ -70,9 +66,6 @@ public class DLL<V> {
         //            where vn ... vk are the values in all Nodes after n
         //
         
-        if (this.size < 0)
-    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
-        
         for (Node n = tail; n != null; n = n.pred) {
         	if (res.length() > 1)
         		res = res + ", ";
@@ -90,8 +83,6 @@ public class DLL<V> {
         // works properly, adding a third value works properly, and adding a
         // fourth value works properly.
     	
-    	if (this.size < 0)
-    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
     	
     	Node newNode = new Node(this.tail, val, null);
     	
@@ -185,9 +176,7 @@ public class DLL<V> {
         //
         // Do NOT check whether n is actually a Node of this list because
         // it will then not be a constant-time operation.
-        
-    	if (this.size < 0)
-    		throw new UnsupportedOperationException("Size should be greater than or equal to 0");
+
     	assert n != null;
     	
     	Node newNode = new Node(n.pred, val, n);
