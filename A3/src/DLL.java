@@ -1,4 +1,4 @@
-/* NetId(s): rs2352 hy483 Time spent: 03 hours, 30 minutes.
+/* NetId(s): rs2352 hy483 Time spent: 02 hours, 15 minutes.
  *
  * Name(s): Ruochen Song, Hongshu Ye 
  * What I thought about this assignment:
