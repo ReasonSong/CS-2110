@@ -1,0 +1,149 @@
+This is Rebecca, grading your A1. Below is the grading table. The grade for
+correctness comes by truncating (not rounding) the grade given by the grading
+program at the end of this file.
+After the grading table are my comments and then the output of the grading program.
+
+Correctness, by grading program                        53 out of  55
+(a) Lines short enough, blanks before methods:         05 out of  05
+(b) Class invariant:                                   10 out of  10
+(c) Method names, parameters:                          05 out of  05
+(d) Specifications complete, used Javadoc comments:    10 out of  10
+(e) Assert statements --checked by grading program:
+(f) Checked javadoc:                                   05 out of  05
+(g) Testing methods:                                   07 out of  10
+Total: 95                                                 out of 100
+Deductions: additional -4 for compiling issues
+Total: 91
+
+(-4) In spite of a note on the Piazza A1 FAQs note and two emails about making
+sure that your PhD.java and PhDTester.java were in the default package, you still
+placed them in a different package. This slowed down our whole grading process.
+
+(-2) You do not have enough test cases for goAfter. You should test dates like
+    2000 Jan and 2000 Jan, 2000 Jan and 2000 April, 2000 April and 2000 Jan, 1995 April and
+    2000 Jan, 2000 Jan and 1995 April.
+
+(-1) In testing arePhDSiblings, you missed a case or two. You should be testing
+    2 phds whose first advisors are the same, 2 phds whose second advisors are the same,
+    2 PhDs where one's first advisor and the other's second advisor are the same, etc.
+
+You use "this.” far too much. It’s unnecessary, unless
+    noise, cluttering up the program. Keep things as simple as possible.
+
+ Thanks for putting in the class invariant and method specifications so well. They help!
+______________________________________________
+ 
+
+
+Executing Testing Method test01Constructor1
+Testing Constructor 1: getName() .
+Testing Constructor 1: getMonth() .
+Testing Constructor 1: getYear() .
+Testing Constructor 1: isFemale() .
+Testing Constructor 1: advisor1() .
+Testing Constructor 1: advisor2() .
+Testing Constructor 1: numberOfAdvisEES() .
+Testing Constructor 1: numberOfAdvisEES() of parent .
+Passed 8.00 out of 8.00 tests
+Test method test01Constructor1 score: 6.00 out of 6.00
+
+Executing Testing Method test04Setters
+Testing Testing addAdvisor1: advisor1(). 
+Testing Testing addAdvisor1: numberOfAdvisEES(). 
+Testing Testing addAdvisor1: advisor1.advisor1(). 
+Testing Testing addAdvisor1: advisor1.numAdvisees(). 
+Testing Testing addAdvisor1: advisor1.numberOfAdvisEES(). 
+Testing Testing addAdvisor2: advisor2(). 
+Testing Testing addAdvisor2: numberOfAdvisEES(). 
+Testing Testing addAdvisor2: advisor2.advisor2. 
+Testing Testing addAdvisor2: advisor2.numberOfAdvisEES(). 
+Testing Testing addAdvisor2:  advisor2.numberOfAdvisEES(). 
+Passed 10.00 out of 10.00 tests
+Test method test04Setters score: 16.00 out of 16.00
+
+Executing Testing Method test07Constructor2
+Testing Constructor 2: getName(). 
+Testing Constructor 2: getMonth(). 
+Testing Constructor 2: getYear(). 
+Testing Constructor 2: isFemale(). 
+Testing Constructor 2: advisor1(). 
+Testing Constructor 2: advisor2(). 
+Testing Constructor 2: numberOfAdvisEES(). 
+Testing Constructor 2: advisor1.numberOfAdvisEES(). 
+Passed 8.00 out of 8.00 tests
+Test method test07Constructor2 score: 7.00 out of 7.00
+
+Executing Testing Method test10Constructor3
+Testing Constructor 3: getName(). 
+Testing Constructor 3: getMonth(). 
+Testing Constructor 3: getYear(). 
+Testing Constructor 3: isFemale(). 
+Testing Constructor 3: advisor1(). 
+Testing Constructor 3: advisor2(). 
+Testing Constructor 3: numberOfAdvisEES(). 
+Testing Constructor 3: advisor1.numberOfAdvisEES(). 
+Testing Constructor 3: advisor2.numberOfAdvisEES(). 
+Passed 9.00 out of 9.00 tests
+Test method test10Constructor3 score: 7.00 out of 7.00
+
+Executing Testing Method test13comesAfter
+Testing null parameter. 
+Testing same year. 
+    Test failed.  Expected result to be false but got true
+Testing same year, p1's month before p2's. 
+Testing same year, p2's month after p1's. 
+    Test failed.  Expected result to be false but got true
+Testing a1's year before, same month. 
+Testing a1's year before, a1's month before. 
+Testing a1's year before, a1's month after. 
+Testing a2's year after, same month. 
+Testing p1's year after, p1's's month before. 
+Testing p2's year after, p2's month after. 
+Passed 8.00 out of 10.00 tests
+Test method test13comesAfter score: 5.60 out of 7.00
+
+Executing Testing Method test16areSiblings
+Testing a1.arePhDSiblings(a1). 
+Testing neither has an advisor. 
+Testing neither has an advisor. 
+Testing adv1 and adv1. 
+Testing adv1 and adv2. 
+Testing adv2 and adv1. 
+Testing adv2 and adv2. 
+Passed 7.00 out of 7.00 tests
+Test method test16areSiblings score: 7.00 out of 7.00
+
+Executing Testing Method test20Asserts
+Testing Test constructor 1 with null name.
+Testing Test constructor 1 with name "". 
+Testing Test constructor 1 with month < 1. 
+Testing Test constructor 1 with 12 < month. 
+Testing Test constructor 1 with gender 'm'. 
+Testing Test constructor 1 with gender 'F'. 
+Testing Test advisor1(null). 
+Testing Test advisor1() with non-null advisor1. 
+Testing Test advisor2() with advisor1 null.
+Testing Test advisor2() with advisor2 not null.
+Testing Test advisor2(null). 
+Testing Test advisor2(p) with p == advisor1. 
+Testing Test constructor 2 with null name. 
+Testing Test constructor 2 with name "". 
+Testing Test constructor 2 with month < 1. 
+Testing Test constructor 2 with 12 < month. 
+Testing Test constructor 2 with gender 'm'. 
+Testing Test constructor 2 with gender 'f'. 
+Testing Test constructor 2 with adv1 null. 
+Testing Test constructor 3 with null name. 
+Testing Test constructor 3 with name "". 
+Testing Test constructor 3 with month < 1. 
+Testing Test constructor 3 with 12 < month. 
+Testing Test constructor 3 with gender 'm'. 
+Testing Test constructor 3 with gender 'f'. 
+Testing Test constructor 3 with adv1 null. 
+Testing Test constructor 3 with adv2 null. 
+Testing Test constructor 3 with adv1 = adv2. 
+Testing Test arePhDSiblings(null). 
+Passed 29.00 out of 29.00 tests
+Test method test20Asserts score: 5.00 out of 5.00
+
+Total Score: 53.60 out of 55.00

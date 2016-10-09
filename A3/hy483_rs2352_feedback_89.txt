@@ -1,0 +1,190 @@
+This is Monica (myo3), grading your A3.  We grade in three steps
+
+1. A grading program tests each method for correctness. Its output is at the end of this file.
+I may give you a few comments on what was wong with your methods, but the output of
+the testing program is the main thing for you to look at.
+
+I truncate the value given by the grading program toward zero and place it in the grading
+table below.
+
+Step 2. I make sure that your getNode is done properly.
+
+Step 3. I look through your JUnit testing class to make sure you have suitable test cases
+and that each one is tested properly. Methods that change the list must be tested using
+toString(), toStringRev(), and size() as discussed in the A3 handout. For a method that is
+a function, the returned value must be tested.
+
+I check to make sure that your methods are tested appropriately. For example, because of
+the nature of the code in remove(...), these tests should be done. (1) removing the only node
+of a 1-element list, (2) removing the first node a longer list, (3) removing the last node of a
+longer list, and (4) removing a node that is not the first or last.
+
+Grading table:
+ 1. Grade given by grading program:    63 out of  65
+ 2. Efficiency of getNode:              5 out of   5
+ 3. Testing                            21 out of  30
+ Total:                                89 out of 100
+Deductions: 			       11
+Total:                                 89
+
+
+Testing:
+
+Deduction 3. You did not use the required way of testing, using toString(),
+toStringRev(), and size() on every method that changes the list. You did not
+do it when testing testSetNodeValue() See the last page of the A3 handout.
+
+Deduction 3. Your testing of add(int, V) (and thus insertBefore). is insufficient. You
+need tests for (1) adding to an empty list, (2) adding at the beginning of a nonempty list,
+(3) adding at the end of a nonempty list, and (4) adding in the middle of a nonempty list. Did not test for (1) & (4)
+
+Deduction 3. Your testing of remove(int) is insufficient. You need tests for (1) removing
+the single node of a one-element list, (2) removing the first element of a list with at
+least two elements, (3) removing the last element of a list with at least two elements, and
+(4) removing a middle value in a list with at least 3 elements. Did not test for (4)
+
+
+
+Executing Testing Method test01constructor
+Testing . List should be [].
+Testing . List reverse should be [].
+Testing . List size should be 0.
+Passed 3.00 out of 3.00 tests
+Test method test01constructor score: 2.00 out of 2.00
+
+Executing Testing Method test03size
+Test size() before and after adding 3 values to empty list.
+Testing . List size should be 0.
+Testing . List size should be 1.
+Testing . List size should be 2.
+Testing . List size should be 3.
+Passed 4.00 out of 4.00 tests
+Test method test03size score: 3.00 out of 3.00
+
+Executing Testing Method test04toStringRev
+Test toStringRev before/after adding these values to empty list: "xx", "y", "abc", "b".
+Testing toStringRev(): should be [].
+Testing toStringRev(): should be [xx].
+Testing toStringRev(): should be [y, xx].
+Testing toStringRev(): should be [abc, y, xx].
+Testing toStringRev(): should be [b, abc, y, xx].
+Passed 5.00 out of 5.00 tests
+Test method test04toStringRev score: 5.00 out of 5.00
+
+Executing Testing Method test05add
+Test add(5), add(17), and add(6).
+Testing . List should be [5].
+Testing . List reverse should be [5].
+Testing . List size should be 1.
+Testing . List should be [5, 17].
+Testing . List reverse should be [17, 5].
+Testing . List size should be 2.
+Testing . List should be [5, 17, 6].
+Testing . List reverse should be [6, 17, 5].
+Testing . List size should be 3.
+Passed 9.00 out of 9.00 tests
+Test method test05add score: 9.00 out of 9.00
+
+Executing Testing Method test07getNode
+Test getNode(0) with 1-element list.
+Testing getNode(0). Should return DLL$Node@506e1b77
+Test getNode(0), getNode(1), and getNode(2) with 3-element list.
+Testing getNode(0). Should return DLL$Node@133314b
+Testing getNode(1). Should return DLL$Node@b1bc7ed
+Testing getNode(2). Should return DLL$Node@7cd84586
+Passed 4.00 out of 4.00 tests
+Test method test07getNode score: 10.00 out of 10.00
+
+Executing Testing Method test09get
+Testing get(-1) on empty list
+Testing get(0) on empty list
+Test get(i) for i in 0..4 on 5-element list.
+Testing get(0). Returned value should be 5.
+Testing get(1). Returned value should be 17.
+Testing get(2). Returned value should be 22.
+Testing get(3). Returned value should be 24.
+Testing get(4). Returned value should be 2.
+Testing get(-1) on a 5-element list
+Testing get(5) on a 5-element list
+Passed 9.00 out of 9.00 tests
+Test method test09get score: 6.00 out of 6.00
+
+Executing Testing Method test11set
+Test set(i, ...) for i in 0..3 on 4-element list.
+Testing . List should be [5, 17, 22, 24].
+Testing set(0, 9). Should return 5
+Testing . List should be [9, 17, 22, 24].
+Testing . List reverse should be [24, 22, 17, 9].
+Testing . List size should be 4.
+Testing set(1, 4). Should return 17
+Testing . List should be [9, 4, 22, 24].
+Testing . List reverse should be [24, 22, 4, 9].
+Testing . List size should be 4.
+Testing set(2, 21). Should return 22
+Testing . List should be [9, 4, 21, 24].
+Testing . List reverse should be [24, 21, 4, 9].
+Testing . List size should be 4.
+Testing set(3, 22). Should return 24
+Testing . List should be [9, 4, 21, 22].
+Testing . List reverse should be [22, 21, 4, 9].
+Testing . List size should be 4.
+Testing set(-1, 5) on 4-element list
+Testing set(5, 7) on 4-element list
+Passed 19.00 out of 19.00 tests
+Test method test11set score: 8.00 out of 8.00
+
+Executing Testing Method test13twoParameterAdd
+Testing add(-1, 5) on 0-element list
+Testing add(7, 5) on 0-element list
+Test, beginning with empty list,  add(0, 5), add(0, 22), add(1, 17), add(1, 15), add(4, 6).
+Testing . List should be [5].
+Testing toStringRev(): should be [5].
+Testing . List size should be 1.
+Testing . List should be [22, 5].
+Testing toStringRev(): should be [5, 22].
+Testing . List size should be 2.
+Testing . List should be [22, 17, 5].
+    Test failed.  Expected result to be [22, 17, 5] but got [22, 5]
+Testing toStringRev(): should be [5, 17, 22].
+Testing . List size should be 3.
+Testing . List should be [22, 15, 17, 5].
+    Test failed.  Expected result to be [22, 15, 17, 5] but got [22, 5]
+Testing toStringRev(): should be [5, 17, 15, 22].
+Testing . List size should be 4.
+Testing . List should be [22, 15, 17, 5, 6].
+    Test failed.  Expected result to be [22, 15, 17, 5, 6] but got [22, 5, 6]
+Testing toStringRev(): should be [6, 5, 17, 15, 22].
+Testing . List size should be 5.
+Testing add(-6, 5) on 5-element list
+Testing add(10, 5) on 5-element list
+Passed 16.00 out of 19.00 tests
+Test method test13twoParameterAdd score: 8.42 out of 10.00
+
+Executing Testing Method test15remove
+Test remove(0) from list [5]
+Testing remove(0). Should return 5
+Testing . List should be [].
+Testing toStringRev(): should be [].
+Testing . List size should be 0.
+Test remove(0) from list [17, 22]
+Testing remove(0). Should return 17
+Testing . List should be [22].
+Testing toStringRev(): should be [22].
+Testing . List size should be 1.
+Test remove(1) from list [22, 25]
+Testing remove(1). Should return 25
+Testing . List should be [22].
+Testing toStringRev(): should be [22].
+Testing . List size should be 1.
+Test remove(1) from list [22, 24, 27]
+Testing . List should be [22, 24, 27].
+Testing remove(1). Should return 24
+Testing . List should be [22, 27].
+Testing toStringRev(): should be [27, 22].
+Testing . List size should be 2.
+Testing remove(-1)
+Testing remove(10) on smaller list
+Passed 19.00 out of 19.00 tests
+Test method test15remove score: 12.00 out of 12.00
+
+Total Score: 63.42 out of 65.00
