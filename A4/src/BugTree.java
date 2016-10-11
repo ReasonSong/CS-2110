@@ -1,6 +1,6 @@
-/* NetId(s): djg17, ret87. Time spent: hh hours, mm minutes.
+/* NetId(s): rs2352, hy483. Time spent: 03 hours, 37 minutes.
 
- * Name(s):
+ * Name(s): Ruochen Song, Hongshu Ye
  * What I thought about this assignment:
  * 
  *
@@ -128,14 +128,33 @@ public class BugTree {
         // because that may end up doing extra work. This method requires you
         // to find the BugTree whose root is p. Look in this class for an
         // already written method to do this. */
-        return this;  // Replace this by the correct code
+    	
+    	if (p == null ||  c == null)
+    		throw new IllegalArgumentException("Can't add a null child to a null node.");
+    	if (getTree(c) != null)
+			throw new IllegalArgumentException("Child already exist in this BugTree.");
+    	if (getTree(p) == null)
+    		throw new IllegalArgumentException("Child can't be added to a node doesn't exist.");
+		
+    	BugTree newTree = new BugTree(c);
+    	getTree(p).children.add(newTree);
+    	
+        return newTree;
     }
 
     /** Return the number of humans in this BugTree.
      * Note: If this is a leaf, the size is 1 (just the root) */
     public int size() {
         //TODO 2
-        return 0; // Replace this by the correct code
+    	
+    	if (children.size() == 0) return 1;
+    	
+    	int size = 0;
+        for (BugTree dt : children) {
+			size += dt.size();
+        }
+    	
+        return size;
     }
 
     /*** Return the depth at which p occurs in this BugTree, or -1
@@ -150,7 +169,18 @@ public class BugTree {
         // the answer, thus terminating execution of the method.
         // If checking each child recursively doesn't find that p is in the tree,
         // return -1 at the end of the method.
-        return -1; // Replace this by the correct code
+    	
+    	if (p == root) return 0;
+    	if (p == null || children.size() == 0) return -1;	// no children
+    	if (children.contains(p)) return 1;		// p found
+    	
+        for (BugTree dt : children) {
+        	int depth = dt.depthOf(p);
+			if(depth != -1) return depth + 1;	// p found in this child
+        }
+    	
+        // p is not found in any child
+        return -1;
     }
 
     /** Return true iff this BugTree contains p. */
@@ -158,6 +188,9 @@ public class BugTree {
         //TODO 4
         /* Note: This BugTree contains p iff the root of this BugTree is
          * p or if one of p's children contains p. */
+    	
+    	if (depthOf(p) >= 0) return true;
+    
         return false; // Replace this by the correct code
     }
 
@@ -193,8 +226,18 @@ public class BugTree {
         //TODO 5
         // Hint: Use this recursive definition. If d = 0, the answer is 1.
         // If d > 0, the answer is: sum of widths of the children at depth d-1.
-
-        return 0; // Replace this by the correct code
+    	if (d < 0)
+    		throw new IllegalArgumentException("Depth can't be negative.");
+    	
+    	if (d > maxDepth()) return 0;
+    	if (d == 0) return 1;
+    	
+    	int width = 0;
+        for (BugTree dt : children) {
+        	width += dt.widthAtDepth(d - 1);
+        }
+    	
+        return width;
     }
 
     /** Return the maximum width of all the widths in this tree, i.e. the
@@ -296,8 +339,22 @@ public class BugTree {
         // LinkedList<Human> is preferred to ArrayList<Human>, because
         // prepend (or its equivalent) may have to be used.
         // Base Case: The root of this BugTree is c. Route is just [c].
-
-        return new LinkedList(); // Replace this by the correct code
+    	
+    	if (!contains(c)) return null;
+    	
+    	LinkedList<Human> route = new LinkedList<Human>();
+    	BugTree temp = this;
+    	while (temp.getRoot() != c){
+    		route.add(temp.getRoot());
+            for (BugTree dt : temp.children) {
+                if (dt.contains(c)) {
+                	temp = dt;
+                	break; 
+                }
+            }
+    	}
+    	route.add(temp.getRoot());   	
+        return route;
     }
 
     /** Return the immediate parent of c (null if c is not in this BugTree).
@@ -363,7 +420,19 @@ public class BugTree {
         //TODO 7
         // HINT: if you are smart about this, you will realize that recursion
         // is not needed if you make use of an already written method
-        return this.root; // Replace this by the correct code
+    	
+    	if (child1 == null || child2 == null 
+    			|| !contains(child1) || !contains(child2)) return null;
+    	
+    	List<Human> route1 = bugRouteTo(child1);
+    	List<Human> route2 = bugRouteTo(child2);
+    	int depth = 0;
+    	int routeDepth = Math.min(route1.size(), route2.size());
+    	while(route1.get(depth) == route2.get(depth) && depth < routeDepth - 1)
+    		++ depth;
+    	if (route1.get(depth) != route2.get(depth)) -- depth;
+    	
+        return route1.get(depth);
     }
 
     /** Return a (single line) String representation of this BugTree.
@@ -470,8 +539,15 @@ public class BugTree {
         // Second, you know that a child of one tree cannot equal more than one
         // child of another tree because the names of Human's are all unique;
         // there are no duplicates.
+    	
+    	if (ob == null || !(ob instanceof BugTree)) return false;
+    	if (ob == this) return true;
+    	
+    	BugTree tree = (BugTree)ob;
+    	
+    	
         
-        return false; // Replace this by the correct code
+        return true;
     }
 
 }

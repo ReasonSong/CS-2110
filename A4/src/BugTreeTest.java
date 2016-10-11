@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 import static common.JUnitUtil.*;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.function.Function;
 
 import org.junit.BeforeClass;
@@ -66,4 +67,83 @@ public class BugTreeTest {
         assertTrue(dt4.copyOfChildren().isEmpty());
     }
 
+    @Test
+    public void testDepth() {
+        BugTree dt= new BugTree(humans[0]); 
+        dt.add(humans[0], humans[1]);
+        dt.add(humans[0], humans[2]);
+        dt.add(humans[1], humans[3]);
+        dt.add(humans[1], humans[4]);
+        dt.add(humans[3], humans[5]);
+        assertEquals(0, dt.depthOf(humans[0]));
+        assertEquals(1, dt.depthOf(humans[1]));
+        assertEquals(2, dt.depthOf(humans[3]));
+        assertEquals(3, dt.depthOf(humans[5]));
+        assertEquals(3, dt.maxDepth());
+    }
+    
+    @Test
+    public void testWidth() {
+        BugTree dt= new BugTree(humans[0]); 
+        dt.add(humans[0], humans[1]);
+        dt.add(humans[0], humans[2]);
+        dt.add(humans[1], humans[3]);
+        dt.add(humans[1], humans[4]);
+        dt.add(humans[2], humans[5]);
+        dt.add(humans[2], humans[6]);
+        dt.add(humans[2], humans[7]);
+        dt.add(humans[3], humans[8]);
+        dt.add(humans[4], humans[9]);
+        dt.add(humans[5], humans[10]);   
+        assertEquals(2, dt.widthAtDepth(1));
+        assertEquals(5, dt.widthAtDepth(2));
+        assertEquals(3, dt.widthAtDepth(3));
+        assertEquals(0, dt.widthAtDepth(4));
+    }
+    
+    @Test
+    public void testBugRoute() {
+        BugTree dt= new BugTree(humans[0]); 
+        dt.add(humans[0], humans[1]);
+        dt.add(humans[0], humans[2]);
+        dt.add(humans[1], humans[3]);
+        dt.add(humans[1], humans[4]);
+        dt.add(humans[2], humans[5]);
+        dt.add(humans[2], humans[6]);
+        dt.add(humans[2], humans[7]);
+        dt.add(humans[3], humans[8]);
+        dt.add(humans[4], humans[9]);
+        dt.add(humans[5], humans[10]);
+        LinkedList<Human> result = new LinkedList<Human>();
+        result.add(humans[0]);
+        assertEquals(true, dt.bugRouteTo(humans[0]).equals(result));
+        result.add(humans[1]);
+        assertEquals(true, dt.bugRouteTo(humans[1]).equals(result));
+        result.add(humans[3]);
+        assertEquals(true, dt.bugRouteTo(humans[3]).equals(result));
+        result.add(humans[8]);
+        assertEquals(true, dt.bugRouteTo(humans[8]).equals(result));
+        assertEquals(null, dt.bugRouteTo(humans[11]));
+    }
+    
+    @Test
+    public void testSharedForebareOf() {
+        BugTree dt= new BugTree(humans[0]); 
+        dt.add(humans[0], humans[1]);
+        dt.add(humans[0], humans[2]);
+        dt.add(humans[1], humans[3]);
+        dt.add(humans[1], humans[4]);
+        dt.add(humans[2], humans[5]);
+        dt.add(humans[2], humans[6]);
+        dt.add(humans[2], humans[7]);
+        dt.add(humans[3], humans[8]);
+        dt.add(humans[4], humans[9]);
+        dt.add(humans[5], humans[10]);
+        assertEquals(humans[0], dt.sharedForebearOf(humans[0], humans[0]));
+        assertEquals(humans[0], dt.sharedForebearOf(humans[0], humans[1]));
+        assertEquals(humans[1], dt.sharedForebearOf(humans[3], humans[4]));
+        assertEquals(humans[1], dt.sharedForebearOf(humans[3], humans[9]));
+        assertEquals(humans[3], dt.sharedForebearOf(humans[3], humans[8]));
+        assertEquals(null, dt.sharedForebearOf(humans[0], humans[11]));
+    }
 }
