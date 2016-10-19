@@ -49,7 +49,7 @@ public class BugTreeTest {
         assertEquals(1, dt.numberOfChildren());
         assertEquals(1, dt2.numberOfChildren());
         assertEquals(0, dt3.numberOfChildren());
-        assertTrue(dt.copyOfChildren().contains(dt2));		
+        assertTrue(dt.copyOfChildren().contains(dt2));      
         assertTrue(dt2.copyOfChildren().contains(dt3));
         assertTrue(dt3.copyOfChildren().isEmpty());
 
@@ -60,13 +60,38 @@ public class BugTreeTest {
         assertEquals(1, dt2.numberOfChildren());
         assertEquals(0, dt3.numberOfChildren());
         assertEquals(0, dt4.numberOfChildren());
-        assertTrue(dt.copyOfChildren().contains(dt2));	
-        assertTrue(dt.copyOfChildren().contains(dt4));		
+        assertTrue(dt.copyOfChildren().contains(dt2));  
+        assertTrue(dt.copyOfChildren().contains(dt4));      
         assertTrue(dt2.copyOfChildren().contains(dt3));
         assertTrue(dt3.copyOfChildren().isEmpty());
         assertTrue(dt4.copyOfChildren().isEmpty());
     }
-
+    
+    @Test
+    public void testSize() {
+        BugTree dt  = new BugTree(humans[0]); 
+        BugTree dt1 = new BugTree(humans[0]); 
+        dt1.add(humans[0], humans[1]);
+        dt1.add(humans[0], humans[2]);
+        dt1.add(humans[1], humans[3]);
+        dt1.add(humans[1], humans[4]);
+        dt1.add(humans[3], humans[5]);
+        BugTree dt2 = new BugTree(humans[0]);
+        dt2.add(humans[0], humans[1]);
+        dt2.add(humans[0], humans[2]);
+        dt2.add(humans[1], humans[3]);
+        dt2.add(humans[1], humans[4]);
+        dt2.add(humans[2], humans[5]);
+        dt2.add(humans[2], humans[6]);
+        dt2.add(humans[2], humans[7]);
+        dt2.add(humans[3], humans[8]);
+        dt2.add(humans[4], humans[9]);
+        dt2.add(humans[5], humans[11]);
+        assertEquals(1,   dt.size());
+        assertEquals(6,  dt1.size());
+        assertEquals(11, dt2.size());
+    }
+    
     @Test
     public void testDepth() {
         BugTree dt= new BugTree(humans[0]); 
@@ -80,6 +105,17 @@ public class BugTreeTest {
         assertEquals(2, dt.depthOf(humans[3]));
         assertEquals(3, dt.depthOf(humans[5]));
         assertEquals(3, dt.maxDepth());
+    }
+    
+    @Test
+    public void testContains() {
+        BugTree dt= new BugTree(humans[0]); 
+        dt.add(humans[0], humans[1]);
+        dt.add(humans[0], humans[2]);
+        dt.add(humans[1], humans[3]);
+        dt.add(humans[1], humans[4]);
+        dt.add(humans[3], humans[5]);
+        assertEquals(true, dt.contains(humans[5]));
     }
     
     @Test
@@ -145,5 +181,56 @@ public class BugTreeTest {
         assertEquals(humans[1], dt.sharedForebearOf(humans[3], humans[9]));
         assertEquals(humans[3], dt.sharedForebearOf(humans[3], humans[8]));
         assertEquals(null, dt.sharedForebearOf(humans[0], humans[11]));
+    }
+    
+    @Test
+    public void testEquals() {
+        BugTree dt= new BugTree(humans[0]); 
+        dt.add(humans[0], humans[1]);
+        dt.add(humans[0], humans[2]);
+        dt.add(humans[1], humans[3]);
+        dt.add(humans[1], humans[4]);
+        dt.add(humans[2], humans[5]);
+        dt.add(humans[2], humans[6]);
+        dt.add(humans[2], humans[7]);
+        dt.add(humans[3], humans[8]);
+        dt.add(humans[4], humans[9]);
+        dt.add(humans[5], humans[10]);
+        BugTree dt1 = new BugTree(humans[0]);
+        dt1.add(humans[0], humans[1]);
+        dt1.add(humans[0], humans[2]);
+        dt1.add(humans[1], humans[3]);
+        dt1.add(humans[1], humans[4]);
+        dt1.add(humans[2], humans[5]);
+        dt1.add(humans[2], humans[6]);
+        dt1.add(humans[2], humans[7]);
+        dt1.add(humans[3], humans[8]);
+        dt1.add(humans[4], humans[9]);
+        dt1.add(humans[5], humans[10]);
+        BugTree dt2 = new BugTree(humans[0]);
+        dt2.add(humans[0], humans[1]);
+        dt2.add(humans[0], humans[2]);
+        dt2.add(humans[1], humans[3]);
+        dt2.add(humans[1], humans[4]);
+        dt2.add(humans[2], humans[5]);
+        dt2.add(humans[2], humans[6]);
+        dt2.add(humans[2], humans[7]);
+        dt2.add(humans[3], humans[8]);
+        dt2.add(humans[4], humans[9]);
+        dt2.add(humans[5], humans[11]);
+        BugTree dt3 = new BugTree(humans[0]);
+        dt3.add(humans[0], humans[1]);
+        dt3.add(humans[0], humans[2]);
+        BugTree dt4 = new BugTree(humans[0]);
+        dt4.add(humans[0], humans[1]);
+        BugTree dt5 = new BugTree(humans[0]);
+        dt5.add(humans[0], humans[2]);
+        BugTree dt6 = new BugTree(humans[0]);
+        BugTree dt7 = new BugTree(humans[1]);
+        assertEquals(true,  dt.equals(dt1));
+        assertEquals(false, dt.equals(dt2));
+        assertEquals(false, dt3.equals(dt4));
+        assertEquals(false, dt4.equals(dt5));
+        assertEquals(false, dt6.equals(dt7));
     }
 }
