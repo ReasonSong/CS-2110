@@ -19,16 +19,27 @@ public class Square extends JPanel implements GameListener{
     public static final int WIDTH = 30;   // square width 
     
     private int x, y; // Coordinates of square on board
+    private GUIController pX, pO;
     private Player turn;
     private boolean clicked = false; 
     private boolean entered = false; 
     
     /** Constructor: a square at (x,y) */
-    public Square(int x, int y) {
+    public Square(int x, int y, GUIController pX, GUIController pO) {
         this.x = x;
         this.y = y;
         this.turn = Player.X;
+        this.pX = pX;
+        this.pO = pO;
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
+    }
+    
+    public int getX(){
+    	return x;
+    }
+    
+    public int getY(){
+    	return y;
     }
     
     /* paint this square using g. The system calls
@@ -37,7 +48,7 @@ public class Square extends JPanel implements GameListener{
         
     	// Draw the Edge
         g.setColor(Color.black);
-        g.drawRect(0, 0, WIDTH-1,HEIGHT-1);
+        g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
     	
         // Draw and fill the square
         g.setColor(Color.white);
@@ -47,7 +58,7 @@ public class Square extends JPanel implements GameListener{
         if (clicked) {
             
         	g.setColor(Color.black);
-        	if (turn == Player.X) {g.drawLine(0, 0, WIDTH-1, HEIGHT-1); g.drawLine(0, HEIGHT-1, WIDTH-1, 0);}
+        	if (turn == Player.O) {g.drawLine(0, 0, WIDTH-1, HEIGHT-1); g.drawLine(0, HEIGHT-1, WIDTH-1, 0);}
         	else g.drawOval(0, 0, WIDTH-2, HEIGHT-2);
         	
         } else if (entered) {	// Show the X mark
@@ -62,18 +73,21 @@ public class Square extends JPanel implements GameListener{
     public void mark() {  
         clicked = true;
         repaint();
+        // update the player's move
+        if (turn == Player.X)  pX.updateLoc(x, y);
+        else pO.updateLoc(x, y);
     }
     
     /** Show an X mark when the mouse enters */
     public void enter() {  
     	entered = true;
-        repaint();
+    	if (!clicked) repaint();
     }
     
     /** Remove the X mark when the mouse exits */
     public void exit() {
     	entered = false;
-        repaint();
+        if(!clicked )repaint();
     }
     
     /** Reset the whole board */

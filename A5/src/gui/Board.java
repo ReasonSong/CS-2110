@@ -39,7 +39,7 @@ public class Board extends JFrame implements ActionListener, GameListener{
   
     MouseEvents me = new MouseEvents();
     
-    public Board() {
+    public Board(GUIController pX, GUIController pO) {
         
     	super("Five in a Row");
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +47,7 @@ public class Board extends JFrame implements ActionListener, GameListener{
     	for (int i = 0; i < 9; ++ i){
     		row[i] = new Box(BoxLayout.X_AXIS);
     		for (int j = 0; j < 9; ++ j){
-    			box[i][j] = new Square(i, j);
+    			box[i][j] = new Square(i, j, pX, pO);
     			box[i][j].addMouseListener(me);
     			row[i].add(box[i][j]);
     		}
@@ -100,6 +100,10 @@ public class Board extends JFrame implements ActionListener, GameListener{
         pack(); 
         setVisible(true);
         setResizable(false);
+    }
+    
+    public Square getSqur(int i, int j){
+    	return box[i][j];
     }
     
     @Override

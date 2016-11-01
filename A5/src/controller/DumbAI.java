@@ -1,5 +1,6 @@
 package controller;
 
+import model.Board;
 import model.Game;
 import model.Location;
 import model.NotImplementedException;
@@ -21,7 +22,10 @@ public class DumbAI extends Controller {
 		// Note: Calling delay here will make the CLUI work a little more
 		// nicely when competing different AIs against each other.
 		
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		// find available moves
+		for (Location loc : Board.LOCATIONS)
+			if (g.getBoard().get(loc) == null) return loc;
+
+		return null;
 	}
 }
