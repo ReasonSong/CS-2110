@@ -3,7 +3,6 @@ package controller;
 import model.Board;
 import model.Game;
 import model.Location;
-import model.NotImplementedException;
 import model.Player;
 
 /**
@@ -12,20 +11,23 @@ import model.Player;
  */
 public class DumbAI extends Controller {
 
-	public DumbAI(Player me) {
+	private gui.Board b;
+	
+	public DumbAI(Player me, gui.Board board) {
 		super(me);
-		// TODO Auto-generated constructor stub
-		throw new NotImplementedException();
+		this.b = board;
 	}
 
 	protected @Override Location nextMove(Game g) {
-		// Note: Calling delay here will make the CLUI work a little more
-		// nicely when competing different AIs against each other.
-		
+
 		// find available moves
 		for (Location loc : Board.LOCATIONS)
-			if (g.getBoard().get(loc) == null) return loc;
-
+			if (g.getBoard().get(loc) == null) {
+				delay();
+				b.getSquare(loc.row, loc.col).mark();
+				return loc;
+			}
+		
 		return null;
 	}
 }

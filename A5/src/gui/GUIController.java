@@ -20,7 +20,7 @@ public class GUIController extends Controller {
 		this.game = g;
 	}
 	
-	public void updateLoc(int x, int y){
+	public void updateLoc(int x, int y) {
 		this.x = x;
 		this.y = y;
 		gameChanged(game);

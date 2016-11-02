@@ -12,10 +12,12 @@ import model.*;
 public class RandomAI extends Controller {
 
 	private final Random random;
+	private gui.Board b;
 	
-	public RandomAI(Player me) {
+	public RandomAI(Player me, gui.Board b) {
 		super(me);
 		this.random = new Random();
+		this.b = b;
 	}
 
 	@Override
@@ -31,8 +33,11 @@ public class RandomAI extends Controller {
 		delay();
 
 		// choose a random move
-		if (!available.isEmpty())
-			return available.get(random.nextInt(available.size()));
+		if (!available.isEmpty()){
+			Location loc = available.get(random.nextInt(available.size()));
+			b.getSquare(loc.row, loc.col).mark();
+			return loc;
+		}
 
 		return null;
 	}

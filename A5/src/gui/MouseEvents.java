@@ -1,8 +1,6 @@
 package gui;
 
-import javax.swing.*;
 import javax.swing.event.*;
-import java.awt.*;
 import java.awt.event.*;
 
 /** Contains methods that respond to mouse events in a Square */

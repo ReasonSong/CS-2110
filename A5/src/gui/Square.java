@@ -1,9 +1,7 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 import model.Game;
 import model.GameListener;
@@ -25,21 +23,26 @@ public class Square extends JPanel implements GameListener{
     private boolean entered = false; 
     
     /** Constructor: a square at (x,y) */
-    public Square(int x, int y, GUIController pX, GUIController pO) {
+    public Square(int x, int y) {
         this.x = x;
         this.y = y;
+        pX = null;
+        pO = null;
         this.turn = Player.X;
-        this.pX = pX;
-        this.pO = pO;
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
     }
     
-    public int getX(){
-    	return x;
-    }
+//    public int getX(){
+//    	return x;
+//    }
+//    
+//    public int getY(){
+//    	return y;
+//    }
     
-    public int getY(){
-    	return y;
+    public void setPlayer(GUIController pX, GUIController pO){
+    	this.pX = pX;
+    	this.pO = pO;
     }
     
     /* paint this square using g. The system calls
@@ -58,7 +61,7 @@ public class Square extends JPanel implements GameListener{
         if (clicked) {
             
         	g.setColor(Color.black);
-        	if (turn == Player.O) {g.drawLine(0, 0, WIDTH-1, HEIGHT-1); g.drawLine(0, HEIGHT-1, WIDTH-1, 0);}
+        	if (turn == Player.X) {g.drawLine(0, 0, WIDTH-1, HEIGHT-1); g.drawLine(0, HEIGHT-1, WIDTH-1, 0);}
         	else g.drawOval(0, 0, WIDTH-2, HEIGHT-2);
         	
         } else if (entered) {	// Show the X mark
@@ -67,15 +70,16 @@ public class Square extends JPanel implements GameListener{
         	g.drawLine(3, 3, WIDTH-5, HEIGHT-5);
         	g.drawLine(3, HEIGHT-5, WIDTH-5, 3);
         }
+        
     }
     
     /** Mark an X/O after been clicked */
     public void mark() {  
         clicked = true;
         repaint();
-        // update the player's move
-        if (turn == Player.X)  pX.updateLoc(x, y);
-        else pO.updateLoc(x, y);
+    	// Update move to the game
+        if (turn == Player.X && pX != null)  pX.updateLoc(x, y);
+        else if (turn == Player.O && pO != null) pO.updateLoc(x, y);
     }
     
     /** Show an X mark when the mouse enters */
@@ -87,7 +91,7 @@ public class Square extends JPanel implements GameListener{
     /** Remove the X mark when the mouse exits */
     public void exit() {
     	entered = false;
-        if(!clicked )repaint();
+        if(!clicked ) repaint();
     }
     
     /** Reset the whole board */
@@ -98,6 +102,7 @@ public class Square extends JPanel implements GameListener{
 
 	@Override
 	public void gameChanged(Game g) {
-		turn = g.nextTurn();
+		if(!clicked) turn = g.nextTurn();
 	}
+	
 }
