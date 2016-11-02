@@ -17,6 +17,7 @@ public class Board extends JFrame implements ActionListener, GameListener{
 	
 	private Game game;
 	private Controller playerX, playerO;
+	private boolean start = false;
 
 	Box  b = new Box(BoxLayout.Y_AXIS);		// Box for the board
 	Box[] row = new Box[9];					// Box for each row of the play board
@@ -28,7 +29,8 @@ public class Board extends JFrame implements ActionListener, GameListener{
 	Box buttonBox = new Box(BoxLayout.Y_AXIS);
 	
 	Square[][] box = new Square[9][9];		// 9 * 9 squares for the play board
-    JLabel infoLabel = new JLabel("Ready to start");
+	JLabel startLabel = new JLabel("  Select the player and start the game!  ");
+    JLabel infoLabel = new JLabel(" ");
 	// Check boxes for player X
 	JLabel lP1 = new JLabel("Player X:");
 	JCheckBox cbP11 = new JCheckBox("Player");
@@ -55,6 +57,7 @@ public class Board extends JFrame implements ActionListener, GameListener{
     	this.game = g;
     	this.playerX = null;
     	this.playerO = null;
+    	this.start = false;
     	
     	g.addListener(this);
     	
@@ -98,6 +101,9 @@ public class Board extends JFrame implements ActionListener, GameListener{
         // Add all components layer by layer
         checkBox.add(xBox);
         checkBox.add(oBox);
+        startLabel.setAlignmentX(CENTER_ALIGNMENT);
+        labelBox.add(startLabel);
+        labelBox.add(Box.createVerticalGlue());
         infoLabel.setAlignmentX(CENTER_ALIGNMENT);
         labelBox.add(infoLabel);
         startButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -137,6 +143,10 @@ public class Board extends JFrame implements ActionListener, GameListener{
     	
     	Object ob = e.getSource();
     	
+    	// Clear the board
+    	for(int i = 0; i < 9; ++i)
+    		for(int j = 0; j < 9; ++j)	box[i][j].clear();
+    	
     	// Start button clicked
     	if (ob instanceof JButton && playerX != null && playerO != null){	// Start the game
     		// Check if any of the players is not an AI
@@ -149,6 +159,7 @@ public class Board extends JFrame implements ActionListener, GameListener{
     		}
     		game.addListener(playerX);
     		game.addListener(playerO);
+    		start = true;
     	}
     	// Check box clicked
     	if (ob instanceof JCheckBox){	// Create the controller for the game
@@ -165,16 +176,18 @@ public class Board extends JFrame implements ActionListener, GameListener{
 
 	@Override
 	public void gameChanged(Game g) {
-		switch(g.getBoard().getState()) {
-		case HAS_WINNER:
-			infoLabel.setText(g.getBoard().getWinner().winner + " wins!");
-			break;
-		case DRAW:
-			infoLabel.setText("Game ended in a draw!");
-			break;
-		case NOT_OVER:
-			infoLabel.setText("It is player " + g.nextTurn() + "'s turn");
-			break;
+		if (start){
+			switch(g.getBoard().getState()) {
+			case HAS_WINNER:
+				infoLabel.setText(g.getBoard().getWinner().winner + " wins!");
+				break;
+			case DRAW:
+				infoLabel.setText("Game ended in a draw!");
+				break;
+			case NOT_OVER:
+				infoLabel.setText("It is player " + g.nextTurn() + "'s turn");
+				break;
+			}
 		}
 	}
 }

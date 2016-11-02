@@ -13,8 +13,8 @@ import model.Player;
   */
 public class Square extends JPanel implements GameListener{
     
-	public static final int HEIGHT = 30;  // square height
-    public static final int WIDTH = 30;   // square width 
+	public static final int HEIGHT = 40;  // square height
+    public static final int WIDTH = 40;   // square width 
     
     private int x, y; // Coordinates of square on board
     private GUIController pX, pO;
@@ -54,7 +54,8 @@ public class Square extends JPanel implements GameListener{
         g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
     	
         // Draw and fill the square
-        g.setColor(Color.white);
+        if ((x+y)%2 == 0) g.setColor(Color.white);
+        else g.setColor(Color.gray);
         g.fillRect(0, 0, WIDTH-1, HEIGHT-1);
         
         // Draw the X/O mark
@@ -62,7 +63,7 @@ public class Square extends JPanel implements GameListener{
             
         	g.setColor(Color.black);
         	if (turn == Player.X) {g.drawLine(0, 0, WIDTH-1, HEIGHT-1); g.drawLine(0, HEIGHT-1, WIDTH-1, 0);}
-        	else g.drawOval(0, 0, WIDTH-2, HEIGHT-2);
+        	else g.drawOval(1, 1, WIDTH-4, HEIGHT-4);
         	
         } else if (entered) {	// Show the X mark
         	
