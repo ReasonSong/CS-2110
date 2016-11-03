@@ -1,12 +1,10 @@
 package controller;
 
-import org.eclipse.jdt.annotation.NonNull;
+import java.util.*;
 
 import model.Board;
-import model.Board.State;
 import model.Game;
 import model.Location;
-import model.NotImplementedException;
 import model.Player;
 
 /**
@@ -55,7 +53,8 @@ import model.Player;
  * the estimation of how good the board is for the given player.
  */
 public abstract class MinMaxAI extends Controller {
-
+	private final int depth;
+	private gui.Board b = null;
 	/**
 	 * Return an estimate of how good the given board is for me.
 	 * A result of infinity means I have won.  A result of negative infinity
@@ -79,16 +78,64 @@ public abstract class MinMaxAI extends Controller {
 	 */
 	protected MinMaxAI(Player me, int depth) {
 		super(me);
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+		this.depth = depth;
 	}
-
+	
+	protected MinMaxAI(Player me, int depth, gui.Board board) {
+		super(me);
+		this.depth = depth;
+		this.b = board;
+	}
+	
+	
 	/**
 	 * Return the move that maximizes the score according to the minimax
 	 * algorithm described above.
 	 */
 	protected @Override Location nextMove(Game g) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
+
+		Player p = this.me;
+		int d = this.depth;
+		int[] result = minMax(p, d, g.getBoard());
+		Location loc = new Location(result[1], result[2]);
+		if (b != null) { 
+			b.getSquare(result[1], result[2]).mark();
+		}
+		return loc;
+	}
+	
+	private int[] minMax(Player pl, int depth, Board b) {
+		Player p = pl;
+		Iterable<Location> result = new ArrayList<>();
+		int score = (p == this.me) ? Integer.MIN_VALUE:Integer.MAX_VALUE;
+		int currentScore;
+		int r = -1, c = -1;
+		
+		result = moves(b);
+		
+		if (depth <= 0) {
+			score = estimate(b);
+		} else {
+			for (Location loc : result) {
+				if (p == this.me) {
+					currentScore = minMax(this.me.opponent(), depth-1, Board.EMPTY.update(p.opponent(), loc))[0];
+					if (currentScore > score) {
+						score = currentScore;
+						r = loc.row;
+						c = loc.col;
+					}
+				} else {
+					currentScore = minMax(this.me, depth-1, Board.EMPTY.update(p.opponent(), loc))[0];
+					if (currentScore < score) {
+						score = currentScore;
+						r = loc.row;
+						c = loc.col;
+                    }
+				}
+			}
+		}
+		
+		int[] best = {score, r, c};
+		return best;
 	}
 }

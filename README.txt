@@ -1,4 +1,4 @@
-Rouchen Song, rs2352
+Ruochen Song, rs2352
 Hongshu Ye, hy483
 
 
@@ -16,6 +16,15 @@ X/O, and click the “start” button.
 -> Due to the latency of function repaint(), the GUI can’t update simultaneously when
    AI plays with AI even though we use paintimmediately() to improve the performance.
 
+-> SmartAI is not smart enough. in some cases, it can beat other AIs, but sometimes
+   it does not perform smart. The MinMaxAI class is implemented with minimax
+   algorithm. A helper function minMax is implemented to perform the recursion to
+   search a certain depth of game tree to get the best score for the player. minMax
+   function returns a int array contain best score so far, row of best location, and
+   column of best location for next move to nextMove function. Then nextMove can get 
+   the best location. The mot-smart-enough-performance might caused by the
+   imperfection of the calculation of max score and/or min score, however, did not
+   find the bug yet. Bugs will be fixed in the future.
 
 3. Feedback
 

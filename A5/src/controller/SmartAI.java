@@ -17,9 +17,12 @@ import model.Player;
  * measure of goodness (described below).
  */
 public class SmartAI extends MinMaxAI {
-
 	public SmartAI(Player me) {
 		super(me, 3);
+	}
+	
+	public SmartAI(Player me, gui.Board b) {
+		super(me, 3, b);
 	}
 
 	
@@ -86,7 +89,7 @@ public class SmartAI extends MinMaxAI {
 		}
 		return result/10;
 	}
-
+	
 	/**
 	 * Return the set of locations that are adjacent to played locations, or
 	 * the center of the board if no moves have been played.
