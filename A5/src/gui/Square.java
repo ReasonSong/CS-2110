@@ -78,6 +78,7 @@ public class Square extends JPanel implements GameListener{
     public void mark() {  
         clicked = true;
         repaint();
+        paintImmediately(this.getBounds());
     	// Update move to the game
         if (turn == Player.X && pX != null)  pX.updateLoc(x, y);
         else if (turn == Player.O && pO != null) pO.updateLoc(x, y);
@@ -86,19 +87,26 @@ public class Square extends JPanel implements GameListener{
     /** Show an X mark when the mouse enters */
     public void enter() {  
     	entered = true;
-    	if (!clicked) repaint();
+    	if (!clicked) {
+    		repaint();
+    		paintImmediately(this.getBounds());
+    	}
     }
     
     /** Remove the X mark when the mouse exits */
     public void exit() {
     	entered = false;
-        if(!clicked ) repaint();
+        if(!clicked ) {
+        	repaint();
+        	paintImmediately(this.getBounds());
+        }
     }
     
     /** Reset the whole board */
     public void clear() {
         clicked = false;
         repaint();
+        paintImmediately(this.getBounds());
     }
 
 	@Override
