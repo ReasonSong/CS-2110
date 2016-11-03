@@ -93,19 +93,14 @@ public abstract class MinMaxAI extends Controller {
 	 * algorithm described above.
 	 */
 	protected @Override Location nextMove(Game g) {
-
-		Player p = this.me;
-		int d = this.depth;
-		int[] result = minMax(p, d, g.getBoard());
+		int[] result = minMax(this.me, this.depth, g.getBoard());
 		Location loc = new Location(result[1], result[2]);
-		if (b != null) { 
-			b.getSquare(result[1], result[2]).mark();
-		}
+		if (b != null) b.getSquare(loc.row, loc.col).mark();
 		return loc;
 	}
 	
-	private int[] minMax(Player pl, int depth, Board b) {
-		Player p = pl;
+	private int[] minMax(Player p, int depth, Board b) {
+		
 		Iterable<Location> result = new ArrayList<>();
 		int score = (p == this.me) ? Integer.MIN_VALUE:Integer.MAX_VALUE;
 		int currentScore;
@@ -115,27 +110,18 @@ public abstract class MinMaxAI extends Controller {
 		
 		if (depth <= 0) {
 			score = estimate(b);
-		} else {
-			for (Location loc : result) {
-				if (p == this.me) {
-					currentScore = minMax(this.me.opponent(), depth-1, Board.EMPTY.update(p.opponent(), loc))[0];
-					if (currentScore > score) {
-						score = currentScore;
-						r = loc.row;
-						c = loc.col;
-					}
-				} else {
-					currentScore = minMax(this.me, depth-1, Board.EMPTY.update(p.opponent(), loc))[0];
-					if (currentScore < score) {
-						score = currentScore;
-						r = loc.row;
-						c = loc.col;
-                    }
-				}
-			}
+			return new int[] {score, r, c};
 		}
 		
-		int[] best = {score, r, c};
-		return best;
+		for (Location loc : result) {
+			currentScore = minMax(p.opponent(), depth-1,
+									Board.EMPTY.update(p.opponent(), loc))[0];
+			if (currentScore < score) {
+				score = currentScore;
+				r = loc.row;
+				c = loc.col;
+			}
+		}
+		return new int[] {score, r, c};
 	}
 }
