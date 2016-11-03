@@ -32,14 +32,6 @@ public class Square extends JPanel implements GameListener{
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
     }
     
-//    public int getX(){
-//    	return x;
-//    }
-//    
-//    public int getY(){
-//    	return y;
-//    }
-    
     public void setPlayer(GUIController pX, GUIController pO){
     	this.pX = pX;
     	this.pO = pO;
