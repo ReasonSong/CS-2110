@@ -11,7 +11,12 @@ import model.Player;
  */
 public class DumbAI extends Controller {
 
-	private gui.Board b;
+	private gui.Board b = null;
+	
+	public DumbAI(Player me) {
+		super(me);
+	}
+	
 	
 	public DumbAI(Player me, gui.Board board) {
 		super(me);
@@ -24,7 +29,7 @@ public class DumbAI extends Controller {
 		for (Location loc : Board.LOCATIONS)
 			if (g.getBoard().get(loc) == null) {
 				delay();
-				b.getSquare(loc.row, loc.col).mark();
+				if (b != null) b.getSquare(loc.row, loc.col).mark();
 				return loc;
 			}
 		

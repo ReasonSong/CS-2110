@@ -12,7 +12,12 @@ import model.*;
 public class RandomAI extends Controller {
 
 	private final Random random;
-	private gui.Board b;
+	private gui.Board b = null;
+	
+	public RandomAI(Player me) {
+		super(me);
+		this.random = new Random();
+	}
 	
 	public RandomAI(Player me, gui.Board b) {
 		super(me);
@@ -35,7 +40,7 @@ public class RandomAI extends Controller {
 		// choose a random move
 		if (!available.isEmpty()){
 			Location loc = available.get(random.nextInt(available.size()));
-			b.getSquare(loc.row, loc.col).mark();
+			if (b != null)b.getSquare(loc.row, loc.col).mark();
 			return loc;
 		}
 
