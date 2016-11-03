@@ -163,11 +163,11 @@ public class Board extends JFrame implements ActionListener, GameListener{
     		if (ob == cbP11) playerX = new GUIController(Player.X, game);
     		if (ob == cbP12) playerX = new DumbAI(Player.X, this);
     		if (ob == cbP13) playerX = new RandomAI(Player.X, this);
-    		if (ob == cbP14) playerX = new SmartAI(Player.X);
+    		if (ob == cbP14) playerX = new SmartAI(Player.X, this);
     		if (ob == cbP21) playerO = new GUIController(Player.O, game);
     		if (ob == cbP22) playerO = new DumbAI(Player.O, this);
     		if (ob == cbP23) playerO = new RandomAI(Player.O, this);
-    		if (ob == cbP24) playerO = new SmartAI(Player.O);
+    		if (ob == cbP24) playerO = new SmartAI(Player.O, this);
     	}
     }
 
