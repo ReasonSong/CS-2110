@@ -198,7 +198,7 @@ public class HeapTester {
             fail("Threw something other than IllegalArgumentException");
         }
     }
-
+    
 
     @Test
     /** Test that adding integers 0..59 to a heap, with priorities same as values,
