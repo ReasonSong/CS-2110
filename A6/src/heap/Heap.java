@@ -190,13 +190,11 @@ public class Heap<V> {
         // TODO 7: Do poll (#6) and bubbleDown together. We also suggest
         //         implementing and using smallerChildOf, though you don't
         //         have to. Do not use recursion. Use iteration.
-        
-    	while (size >= 2*k+1 && c[k]!= null) {
-    		int smallerChild = smallerChildOf(k);
-    		if (c[k].priority > c[smallerChild].priority) {
-    			swap(k, smallerChild);
-    		}
+        int smallerChild = smallerChildOf(k);
+    	while ((size > 2*k+1) && c[k].priority > c[smallerChild].priority) {
+    		swap(k, smallerChild);
     		k = smallerChild;
+    		smallerChild = smallerChildOf(k);
     	}
     }
 
@@ -204,13 +202,10 @@ public class Heap<V> {
      *  If the two children have the same priority, choose the right one.
      *  Precondition: left child exists: 2n+1 < size of heap */
      int smallerChildOf(int n) {
-    	 if (size == 0){
-         	throw new NoSuchElementException();
-         }
     	 int smallerChild = -1;
-    	 if(size >= 2*n+1) {
+    	 if(size > 2*n+1) {
     		 smallerChild = 2*n+1;
-    	 } else if (size >= 2*n+2 && c[2*n+2].priority <= c[smallerChild].priority) {
+    	 } else if ((size > 2*n+2) && (c[2*n+2].priority <= c[smallerChild].priority)) {
     		 smallerChild = 2*n+2;
     	 }
     	 return smallerChild;
