@@ -3,9 +3,11 @@ package controller;
 import java.util.*;
 
 import model.Board;
+import model.Board.State;
 import model.Game;
 import model.Location;
 import model.Player;
+import model.Victory;
 
 /**
  * A MinMaxAI is a controller that uses the minimax algorithm to select the next
@@ -93,35 +95,59 @@ public abstract class MinMaxAI extends Controller {
 	 * algorithm described above.
 	 */
 	protected @Override Location nextMove(Game g) {
-		int[] result = minMax(this.me, this.depth, g.getBoard());
+
+		int d = this.depth;
+		int[] result = minMax(d, g.getBoard());
 		Location loc = new Location(result[1], result[2]);
-		if (b != null) b.getSquare(loc.row, loc.col).mark();
+		if (b != null) { 
+			b.getSquare(result[1], result[2]).mark();
+		}
 		return loc;
 	}
 	
-	private int[] minMax(Player p, int depth, Board b) {
-		
+	private int[] minMax(int depth, Board b) {
 		Iterable<Location> result = new ArrayList<>();
-		int score = (p == this.me) ? Integer.MIN_VALUE:Integer.MAX_VALUE;
+		int score = (depth%2==0) ? Integer.MIN_VALUE:Integer.MAX_VALUE;
 		int currentScore;
 		int r = -1, c = -1;
-		
+		int[] best = {score, r, c};
 		result = moves(b);
 		
-		if (depth <= 0) {
-			score = estimate(b);
-			return new int[] {score, r, c};
-		}
-		
-		for (Location loc : result) {
-			currentScore = minMax(p.opponent(), depth-1,
-									Board.EMPTY.update(p.opponent(), loc))[0];
-			if (currentScore < score) {
-				score = currentScore;
-				r = loc.row;
-				c = loc.col;
+		if (b.getState() == State.HAS_WINNER) {
+			Victory win = b.getWinner();
+			if (win.equals(this.me)) {
+				return new int[]{Integer.MAX_VALUE, -1, -1};
+			} else {
+				return new int[]{Integer.MIN_VALUE, -1, -1};
 			}
 		}
+		
+		if (b.getState() == State.DRAW) {
+			return new int[]{0, -1, -1};
+		}
+		
+		if (depth == 0) {
+			score = estimate(b);
+		} else {
+			for (Location loc : result) {
+				if (depth%2 == 0) {
+					currentScore = minMax(depth-1, b.update(this.me, loc))[0];
+					if (currentScore > score) {
+						score = currentScore;
+						r = loc.row;
+						c = loc.col;
+					}
+				} else {
+					currentScore = minMax( depth-1, b.update(this.me.opponent(), loc))[0];
+					if (currentScore < score) {
+						score = currentScore;
+						r = loc.row;
+						c = loc.col;
+					}
+				}
+			}
+		}
+		
 		return new int[] {score, r, c};
 	}
 }
