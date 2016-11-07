@@ -73,16 +73,16 @@ public class Heap<V> {
         // so calling it will have no effect (yet). The first tests of add, using
         // test00Add, ensure that this method maintains fields c and map properly,
         // without worrying about bubbling up. Look at the spec of test00Add.
-    	
-    	if(map.containsKey(v)) {
-    		throw new IllegalArgumentException();
-    	}
-    	ensureSpace();
-    	Entry entry = new Entry(v, p);
-    	c[size] = entry;
-    	map.put(v, size);
-    	bubbleUp(size);
-    	size++;
+        
+        if(map.containsKey(v)) {
+            throw new IllegalArgumentException();
+        }
+        ensureSpace();
+        Entry entry = new Entry(v, p);
+        c[size] = entry;
+        map.put(v, size);
+        bubbleUp(size);
+        size++;
     }
 
        
@@ -92,10 +92,10 @@ public class Heap<V> {
         // this method first. If you write this method correctly AND method
         // add calls this method appropriately, testing procedure
         // test10ensureSpace will not find errors.
-    	
-    	if(size == c.length) {
-    		c = Arrays.copyOf(c, c.length * 2);
-    	}
+        
+        if(size == c.length) {
+            c = Arrays.copyOf(c, c.length * 2);
+        }
     }
     
     /** Return the number of values in this heap.
@@ -113,16 +113,16 @@ public class Heap<V> {
         // use method swap for this. Method swap is tested by testing
         // procedure test13Add_Swap --it will find no errors if you write
         // this method properly.
-    	
-    	if(0 <= h && h < c.length && 0 <= k && k < c.length) {
-    		Entry temp = new Entry(c[h].value, c[h].priority);
-    		c[h].value = c[k].value;
-    		c[h].priority = c[k].priority;
-    		map.put(c[h].value, h);
-    		c[k].value = temp.value;
-    		c[k].priority = temp.priority;
-    		map.put(c[k].value, k);
-    	}
+        
+        if(0 <= h && h < c.length && 0 <= k && k < c.length) {
+            Entry temp = new Entry(c[h].value, c[h].priority);
+            c[h].value = c[k].value;
+            c[h].priority = c[k].priority;
+            map.put(c[h].value, h);
+            c[k].value = temp.value;
+            c[k].priority = temp.priority;
+            map.put(c[k].value, k);
+        }
     }
     
     /** Bubble c[k] up in heap to its right place.
@@ -134,14 +134,14 @@ public class Heap<V> {
         // Do not use recursion. Use iteration.
         // If this method is written properly, testing procedure
         // test15Add_BubbleUp() will not find any errors.
-    	
-    	int parentIndex = (k-1)/2;
-    	while((parentIndex >= 0) && c[k].priority < c[parentIndex].priority) {
-    		swap(k, parentIndex);
-    		k = parentIndex;
-    		parentIndex = (k-1)/2;
-    	}
-    	
+        
+        int parentIndex = (k-1)/2;
+        while((parentIndex >= 0) && c[k].priority < c[parentIndex].priority) {
+            swap(k, parentIndex);
+            k = parentIndex;
+            parentIndex = (k-1)/2;
+        }
+        
     }
 
     /** Return the value of this heap with lowest priority. Do not
@@ -150,8 +150,9 @@ public class Heap<V> {
     public V peek() {
         // TODO 5: Do peek. This is an easy one. 
         //         test20Peek() will not find errors if this is correct.
+        
         if (size == 0){
-        	throw new NoSuchElementException();
+            throw new NoSuchElementException();
         }
         return c[0].value;
     }
@@ -169,15 +170,15 @@ public class Heap<V> {
         //         This method tests to make sure that when bubbling up or down,
         //         two values with the same priority are not swapped.
         
-    	if (size == 0){
-        	throw new NoSuchElementException();
+        if (size == 0){
+            throw new NoSuchElementException();
         }
-    	V v = c[0].value;
-    	swap(0, size-1);
-    	map.remove(v);
-    	size--;
-    	bubbleDown(0);
-    	return v;
+        V v = c[0].value;
+        swap(0, size-1);
+        map.remove(v);
+        size--;
+        bubbleDown(0);
+        return v;
     }
     
     /** Bubble c[k] down in heap until it finds the right place.
@@ -191,24 +192,22 @@ public class Heap<V> {
         //         implementing and using smallerChildOf, though you don't
         //         have to. Do not use recursion. Use iteration.
         int smallerChild = smallerChildOf(k);
-    	while ((size > 2*k+1) && c[k].priority > c[smallerChild].priority) {
-    		swap(k, smallerChild);
-    		k = smallerChild;
-    		smallerChild = smallerChildOf(k);
-    	}
+        while ((size > 2*k+1) && c[k].priority > c[smallerChild].priority) {
+            swap(k, smallerChild);
+            k = smallerChild;
+            smallerChild = smallerChildOf(k);
+        }
     }
 
     /** Return the index of the smaller child of c[n]
      *  If the two children have the same priority, choose the right one.
      *  Precondition: left child exists: 2n+1 < size of heap */
      int smallerChildOf(int n) {
-    	 int smallerChild = -1;
-    	 if(size > 2*n+1) {
-    		 smallerChild = 2*n+1;
-    	 } else if ((size > 2*n+2) && (c[2*n+2].priority <= c[smallerChild].priority)) {
-    		 smallerChild = 2*n+2;
-    	 }
-    	 return smallerChild;
+         int smallerChild = 2*n+2;
+         if (smallerChild >= size || c[smallerChild-1].priority < c[smallerChild].priority) {
+             smallerChild = smallerChild-1;
+         }
+         return smallerChild;
     }
 
     /** Change the priority of value v to p.
@@ -218,16 +217,17 @@ public class Heap<V> {
     public void changePriority(V v, double p) {
         // TODO  8: When this method is correctly implemented, testing procedure
         //          test50ChangePriority() won't find errors.
-    	if (map.containsKey(v) == false) {
-    		throw new IllegalArgumentException();
-    	}
+        
+        if (map.containsKey(v) == false) {
+            throw new IllegalArgumentException();
+        }
         int index = map.get(v);
         double prevPriority = c[index].priority;
         c[index].priority = p;
         if(prevPriority < p) {
-        	bubbleDown(index);
+            bubbleDown(index);
         } else if (prevPriority > p) {
-        	bubbleUp(index);
+            bubbleUp(index);
         }
     }
     
