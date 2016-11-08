@@ -1,0 +1,8 @@
+6
+"Cleveland" "Norfolk" "PompanoBeach" "Ithaca" "LongBeach" "Provo" 
+0 26 15 26 37 41 
+26 0 11 22 39 51 
+15 11 0 11 50 40 
+26 22 11 0 61 29 
+37 39 50 61 0 78 
+41 51 40 29 78 0 

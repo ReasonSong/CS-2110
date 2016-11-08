@@ -1,0 +1,13 @@
+{
+"scoreCoeff":[-3,-15,-23,1928,3],
+"node-0":{
+"name":"Ithaca",
+"x":1290,
+"y":714
+},
+"node-1":{
+"name":"Truck Depot",
+"x":1190,
+"y":714
+}
+}
