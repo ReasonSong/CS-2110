@@ -118,15 +118,16 @@ public class PathsTester {
         checkAllShortestPaths(g, pd);
     }
     
+
     @Test
-    /** Test all shortest paths on map seededw with  */
-    public void test80MapSeeded() {
-        Graph g= Graph.randomBoard(5842236091853851505L);
-        PathData pd= new PathData("data/Maps/Seed5842236091853851505L.txt", g);
-        assertEquals(46, pd.size);
+    /** Test all shortest paths on map seeded with 128 */
+    public void test80MapSeeded128() {
+        Graph g= getGraph("data/Maps/seed128.txt");
+        PathData pd= new PathData("data/Maps/seed128distances.txt", g);
+        assertEquals(50, pd.size);
         checkAllShortestPaths(g, pd);
     }
-
+    
     /** Check the shortest paths in g from each node to each node, as
      * given by Paths.shortestPaths, matches that in pd. Use the ordering
      * of nodes as give in pd.names. */

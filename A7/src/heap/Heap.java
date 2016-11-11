@@ -152,9 +152,12 @@ public class Heap<V> {
      *  If the two children have the same priority, choose the right one.
      *  Precondition: left child exists: 2n+1 < size of heap */
      int smallerChildOf(int n) {
-		int lChild= 2*n + 1;
-		if (lChild + 1  ==  size) return lChild;
-		return c[lChild].priority < c[lChild+1].priority ? lChild : lChild+1;
+         int smallerChild = 2 * n + 2;
+         if (smallerChild >= size
+		 		|| c[smallerChild-1].priority < c[smallerChild].priority) {
+             smallerChild = smallerChild - 1;
+         }
+         return smallerChild;
     }
 
     /** Change the priority of value v to p.
