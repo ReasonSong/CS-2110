@@ -15,7 +15,7 @@ import game.Node;
 /** This class contains Dijkstra's shortest-path algorithm and some other methods. */
 public class Paths {
 
-    /** Return a list of the nodes on the shortest path from start to 
+    /** Return a list of the nodes on the shortest path from start to
      * end, or the empty list if a path does not exist.
      * Note: The empty list is NOT "null"; it is a list with 0 elements. */
     public static List<Node> shortestPath(Node start, Node end) {
@@ -49,14 +49,35 @@ public class Paths {
          Method pathDistance uses one more: n1.getEdge(n2)
          */
 
-        // The frontier set, as discussed in lecture 20
-        Heap<Node> F= new Heap<Node>();
+		 HashMap<Node, SFdata> nodeMap = new HashMap<Node, SFdata>();
+		 Heap<Node> frontierSet = new Heap<>();
 
-        
-        
-        
-        
-        return new LinkedList<Node>(); // no path found
+		 frontierSet.add(start, 0);
+		 nodeMap.put(start, new SFdata(0, null));
+
+		 while(frontierSet.size() != 0 && frontierSet.peek() != end){
+
+			 Node head = frontierSet.poll();
+			 List<Edge> edgeList = head.getExits();
+
+			 for(Edge curEdge: edgeList){
+
+				 Node otherNode = curEdge.getOther(head);
+				 int totalLength = nodeMap.get(head).distance + curEdge.length;
+
+				 if (!nodeMap.containsKey(otherNode)) {
+					 SFdata data = new SFdata(totalLength, head);
+					 nodeMap.put(otherNode, data);
+					 frontierSet.add(otherNode, totalLength);
+				 } else if (totalLength < nodeMap.get(otherNode).distance) {
+					 nodeMap.get(otherNode).distance = totalLength;
+					 nodeMap.get(otherNode).backPointer = head;
+					 frontierSet.changePriority(otherNode, totalLength);
+				 }
+			 }
+		 }
+		 if (nodeMap.containsKey(end)) return constructPath(end, nodeMap);
+         return new LinkedList<Node>(); // no path found
     }
 
     /** Return the path from the start node to node end.
